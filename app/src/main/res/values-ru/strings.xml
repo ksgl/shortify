@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">укороти-ка</string>
-    <string name="some_text">проверяю...</string>
+    <string name="shorten_btn_str">укоротить url</string>
 </resources>

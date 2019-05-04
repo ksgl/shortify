@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">shortify</string>
-    <string name="some_text">testing...</string>
+    <string name="shorten_btn_str">shorten url</string>
+    <string name="input_url_hint_str">url to shorten</string>
 </resources>
