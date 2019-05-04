@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         shortenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 //                Toast toast = Toast.makeText(v.getContext(), "ah!", Toast.LENGTH_SHORT);
 //                toast.show();
             }
