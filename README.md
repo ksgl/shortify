@@ -19,8 +19,8 @@ The app that gonna make you cry. Interpret this in any way you like.
 * локальное храние
 * описание функций в readme (функций приложения или документация кода?)
 * МВП
-** основная логика с сокращением по одному сервису
-** возможность посмотреть историю
+- основная логика с сокращением по одному сервису
+- возможность посмотреть историю
 
 Критерии снижения баллов:
 https://docs.google.com/document/d/1eJkudKXHYA-A5KYrTDxCg69GImGXRv_705r6TZOmyBc/edit
