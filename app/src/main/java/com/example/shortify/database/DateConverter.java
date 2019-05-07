@@ -1,3 +1,5 @@
+package com.example.shortify.database;
+
 import android.arch.persistence.room.TypeConverter;
 
 import java.util.Date;

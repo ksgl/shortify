@@ -1,4 +1,4 @@
-package com.example.shortify;
+package com.example.shortify.history;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.shortify.R;
+import com.example.shortify.database.LinkModel;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(final RecyclerViewHolder holder, int position) {
         LinkModel linkModel = linkModelList.get(position);
         holder.originalURLTextView.setText(linkModel.getOriginalURL());
-        holder.shortlURLTextView.setText(linkModel.getShortURL());
+        holder.shortURLTextView.setText(linkModel.getShortURL());
         holder.dateTextView.setText(linkModel.getDate().toString());
         holder.starredTextView.setText(Boolean.toString(linkModel.getStarred()));
         holder.itemView.setOnLongClickListener(longClickListener);
@@ -48,14 +49,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     static class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private TextView originalURLTextView;
-        private TextView shortlURLTextView;
+        private TextView shortURLTextView;
         private TextView dateTextView;
         private TextView starredTextView;
 
         RecyclerViewHolder(View view) {
             super(view);
             originalURLTextView = (TextView) view.findViewById(R.id.original_url_tv);
-            shortlURLTextView = (TextView) view.findViewById(R.id.short_url_tv);
+            shortURLTextView = (TextView) view.findViewById(R.id.short_url_tv);
             dateTextView = (TextView) view.findViewById(R.id.date_tv);
             starredTextView = (TextView) view.findViewById(R.id.starred_tv);
         }
