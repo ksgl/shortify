@@ -32,7 +32,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         LinkModel linkModel = linkModelList.get(position);
         holder.originalURLTextView.setText(linkModel.getOriginalURL());
         holder.shortURLTextView.setText(linkModel.getShortURL());
-        holder.dateTextView.setText(linkModel.getDate().toString());
+//        holder.dateTextView.setText(linkModel.getDate().toString());
         holder.starredTextView.setText(Boolean.toString(linkModel.getStarred()));
         holder.itemView.setOnLongClickListener(longClickListener);
     }
@@ -42,7 +42,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return linkModelList.size();
     }
 
-    public void addItems(List<LinkModel> borrowModelList) {
+    public void addItems(List<LinkModel> linkModelList) {
         this.linkModelList = linkModelList;
         notifyDataSetChanged();
     }
@@ -55,10 +55,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         RecyclerViewHolder(View view) {
             super(view);
-            originalURLTextView = (TextView) view.findViewById(R.id.original_url_tv);
-            shortURLTextView = (TextView) view.findViewById(R.id.short_url_tv);
-            dateTextView = (TextView) view.findViewById(R.id.date_tv);
-            starredTextView = (TextView) view.findViewById(R.id.starred_tv);
+            originalURLTextView = view.findViewById(R.id.original_url_tv);
+            shortURLTextView = view.findViewById(R.id.short_url_tv);
+            dateTextView = view.findViewById(R.id.date_tv);
+            starredTextView = view.findViewById(R.id.starred_tv);
         }
     }
 }

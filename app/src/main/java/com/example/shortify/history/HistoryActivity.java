@@ -49,7 +49,6 @@ public class HistoryActivity extends AppCompatActivity implements View.OnLongCli
 //        toast.show();
 
         recyclerView = findViewById(R.id.recycler_view);
-        //recyclerViewAdapter = new RecyclerViewAdapter(new ArrayList<LinkModel>(), this);
         recyclerViewAdapter = new RecyclerViewAdapter(new ArrayList<LinkModel>(), this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(recyclerViewAdapter);
