@@ -14,11 +14,8 @@ import java.util.List;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder> {
 
     private List<LinkModel> linkModelList;
-    private View.OnLongClickListener longClickListener;
-
-    public RecyclerViewAdapter(List<LinkModel> linkModelList, View.OnLongClickListener longClickListener) {
+    public RecyclerViewAdapter(List<LinkModel> linkModelList) {
         this.linkModelList = linkModelList;
-        this.longClickListener = longClickListener;
     }
 
     @Override
@@ -34,7 +31,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.shortURLTextView.setText(linkModel.getShortURL());
 //        holder.dateTextView.setText(linkModel.getDate().toString());
         holder.starredTextView.setText(Boolean.toString(linkModel.getStarred()));
-        holder.itemView.setOnLongClickListener(longClickListener);
     }
 
     @Override

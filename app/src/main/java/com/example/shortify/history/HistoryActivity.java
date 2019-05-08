@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.DatePicker;
+import android.support.design.widget.FloatingActionButton;
 
 import com.example.shortify.R;
 import com.example.shortify.database.LinkModel;
@@ -19,12 +20,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class HistoryActivity extends AppCompatActivity implements View.OnLongClickListener, DatePickerDialog.OnDateSetListener {
+public class HistoryActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     private LinkViewModel viewModel;
     private RecyclerViewAdapter recyclerViewAdapter;
     private RecyclerView recyclerView;
-
 
     private Date date;
     private DatePickerDialog datePickerDialog;
@@ -36,24 +36,21 @@ public class HistoryActivity extends AppCompatActivity implements View.OnLongCli
         setContentView(R.layout.activity_history);
 
         calendar = Calendar.getInstance();
-
         datePickerDialog = new DatePickerDialog(this, HistoryActivity.this, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
         viewModel = ViewModelProviders.of(this).get(LinkViewModel.class);
 
-        viewModel.addLink(new LinkModel("long","short",date,true));
-        viewModel.addLink(new LinkModel("lonassafdasfsdfg","shodsfrt",date,true));
-        viewModel.addLink(new LinkModel("lonertewrterwterterterg","shaaaaaort",date,true));
+//        viewModel.add(new LinkModel("ddddddddddddd","short",date,true));
+//        viewModel.add(new LinkModel("lonassafdasfsdfg","shodsfrt",date,true));
+        viewModel.add(new LinkModel("bubu","shaaaaaort",date,true));
 
 //        Toast toast = Toast.makeText(this, viewModel.toString(), Toast.LENGTH_SHORT);
 //        toast.show();
 
         recyclerView = findViewById(R.id.recycler_view);
-        recyclerViewAdapter = new RecyclerViewAdapter(new ArrayList<LinkModel>(), this);
+        recyclerViewAdapter = new RecyclerViewAdapter(new ArrayList<LinkModel>());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(recyclerViewAdapter);
-
-        viewModel = ViewModelProviders.of(this).get(LinkViewModel.class);
 
         viewModel.getLinkList().observe(HistoryActivity.this, new Observer<List<LinkModel>>() {
             @Override
@@ -61,13 +58,14 @@ public class HistoryActivity extends AppCompatActivity implements View.OnLongCli
                 recyclerViewAdapter.addItems(l);
             }
         });
-    }
 
-    @Override
-    public boolean onLongClick(View v) {
-        LinkModel linkModel = (LinkModel) v.getTag();
-        viewModel.removeLink(linkModel);
-        return true;
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewModel.removeAll();
+            }
+        });
     }
 
     @Override

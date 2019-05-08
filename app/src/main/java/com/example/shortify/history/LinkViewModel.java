@@ -13,28 +13,24 @@ import java.util.List;
 public class LinkViewModel extends AndroidViewModel {
 
     private final LiveData<List<LinkModel>> linkList;
-
     private LinkDatabase linkDatabase;
 
     public LinkViewModel(Application application) {
         super(application);
 
         linkDatabase = LinkDatabase.getDatabase(this.getApplication());
-
         linkList = linkDatabase.linkModel().getAll();
     }
-
 
     public LiveData<List<LinkModel>> getLinkList() {
         return linkList;
     }
 
-    public void removeLink(LinkModel link) {
-        new deleteAsyncTask(linkDatabase).execute(link);
+    public void removeAll() {
+        new deleteAsyncTask(linkDatabase).execute(linkList.getValue());
     }
 
-    private static class deleteAsyncTask extends AsyncTask<LinkModel, Void, Void> {
-
+    private static class deleteAsyncTask extends AsyncTask<List<LinkModel>, Void, Void> {
         private LinkDatabase db;
 
         deleteAsyncTask(LinkDatabase linkDatabase) {
@@ -42,20 +38,18 @@ public class LinkViewModel extends AndroidViewModel {
         }
 
         @Override
-        protected Void doInBackground(final LinkModel... params) {
-            db.linkModel().deleteLink(params[0]);
+        protected Void doInBackground(final List<LinkModel>... params) {
+                db.linkModel().deleteAll();
             return null;
         }
     }
 
-    public void addLink(final LinkModel link) {
+    public void add(final LinkModel link) {
         new addAsyncTask(linkDatabase).execute(link);
     }
 
     private static class addAsyncTask extends AsyncTask<LinkModel, Void, Void> {
-
         private LinkDatabase db;
-
         addAsyncTask(LinkDatabase linkDatabase) {
             db = linkDatabase;
         }
@@ -65,6 +59,5 @@ public class LinkViewModel extends AndroidViewModel {
             db.linkModel().addLink(params[0]);
             return null;
         }
-
     }
 }
