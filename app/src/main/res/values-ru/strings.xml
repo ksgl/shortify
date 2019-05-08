@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">укороти-ка</string>
-    <string name="shorten_btn_str">укоротить url</string>
+    <string name="shorten_btn_str">укоротить</string>
+    <string name="history_btn_str">история</string>
+    <string name="input_url_hint_str">адрес</string>
 </resources>

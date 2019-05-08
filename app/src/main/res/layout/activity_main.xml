@@ -32,14 +32,14 @@
 
     <Button
         android:id="@+id/history_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="61dp"
-        android:text="Button"
+        android:layout_width="88dp"
+        android:layout_height="44dp"
+        android:text="@string/history_btn_str"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.795" />
+        app:layout_constraintVertical_bias="0.655" />
 
 </android.support.constraint.ConstraintLayout>
