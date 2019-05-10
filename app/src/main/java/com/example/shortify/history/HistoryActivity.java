@@ -19,7 +19,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class HistoryActivity extends AppCompatActivity {//implements DatePickerDialog.OnDateSetListener {
+public class HistoryActivity extends AppCompatActivity {
 
     private LinkViewModel viewModel;
     private RecyclerViewAdapter recyclerViewAdapter;
@@ -34,20 +34,10 @@ public class HistoryActivity extends AppCompatActivity {//implements DatePickerD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
-//        calendar = Calendar.getInstance();
-//        datePickerDialog = new DatePickerDialog(this, HistoryActivity.this, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-
         viewModel = ViewModelProviders.of(this).get(LinkViewModel.class);
 
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
-//        String date = simpleDateFormat.format(new Date());
-//
-//        Toast toast = Toast.makeText(this, date, Toast.LENGTH_SHORT);
-//        toast.show();
-
-        date = new Date();
-
-//        viewModel.add(new LinkModel("bubu","shortened",date,true));
+        viewModel.add(new LinkModel("yandex.ru","y.r",date,true));
+        viewModel.add(new LinkModel("mmmmmmm.ru","m.r",date,true));
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerViewAdapter = new RecyclerViewAdapter(new ArrayList<LinkModel>());
@@ -69,12 +59,4 @@ public class HistoryActivity extends AppCompatActivity {//implements DatePickerD
             }
         });
     }
-
-//    @Override
-//    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-//        calendar.set(Calendar.YEAR, year);
-//        calendar.set(Calendar.MONTH, month);
-//        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-//        date = calendar.getTime();
-//    }
 }
