@@ -47,7 +47,7 @@ public class HistoryActivity extends AppCompatActivity {//implements DatePickerD
 
         date = new Date();
 
-//        viewModel.add(new LinkModel("bubu","shortened",date,true));
+        viewModel.add(new LinkModel("bubu","shortened",date,true));
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerViewAdapter = new RecyclerViewAdapter(new ArrayList<LinkModel>());
