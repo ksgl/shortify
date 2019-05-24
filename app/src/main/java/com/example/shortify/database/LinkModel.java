@@ -2,9 +2,6 @@ package com.example.shortify.database;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.TypeConverters;
-
-import java.util.Date;
 @Entity
 public class LinkModel {
 
@@ -12,11 +9,10 @@ public class LinkModel {
     public int id;
     private String originalURL;
     private String shortURL;
-    @TypeConverters(DateConverter.class)
-    private Date date;
+    private String date;
     boolean starred;
 
-    public LinkModel(String originalURL, String shortURL, Date date, boolean starred) {
+    public LinkModel(String originalURL, String shortURL, String date, boolean starred) {
         this.originalURL = originalURL;
         this.shortURL = shortURL;
         this.date = date;
@@ -31,7 +27,7 @@ public class LinkModel {
         return shortURL;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 

@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
                     new POST().post(url.getText().toString());
 
+                    // process(response) -> short url, add to db, add to screen, copy to clipboard, toast, error proccessing
+
                 } catch (Exception e) {
                     e.printStackTrace();
             }

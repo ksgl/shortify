@@ -1,54 +1,58 @@
 package com.example.shortify.http;
 
-import android.os.AsyncTask;
+import android.os.Handler;
 import android.util.Log;
 
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+//import okhttp3.Callback;
+
 public class POST {
-    public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
+    public static final MediaType JSON
+            = MediaType.get("application/json; charset=utf-8");
 
     OkHttpClient client = new OkHttpClient();
+    private static final String LOG_TAG = "OkHTTPServer:";
+    final Handler handler = new Handler();
 
-    public void post(String json) {
-        new postAsyncTask(client).execute(json);
-    }
+    public void post(String json) throws IOException {
+        String uri = "https://api-ssl.bitly.com/v3/shorten?access_token=fc11278ca50671dbd19332c8698026c7a9cd4123&longUrl=" + json;
+        Request request = new Request.Builder()
+                .url(uri)
+                .build();
 
-    public void showResponse(String response) {
-    }
-
-    private static class postAsyncTask extends AsyncTask<String, Void, String> {
-        private OkHttpClient c;
-
-        postAsyncTask(OkHttpClient client) {
-            c = client;
-        }
-
-        @Override
-        protected String doInBackground(String... json) {
-//            RequestBody body = RequestBody.create(JSON, json[0]);
-            String temp = "https://api-ssl.bitly.com/v3/shorten?access_token=fc11278ca50671dbd19332c8698026c7a9cd4123&longUrl=" + json[0];
-            Request request = new Request.Builder()
-                            .url(temp)
-//                            .post(body)
-                            .build();
-
-
-            try (Response response = c.newCall(request).execute()) {
-                return response.body().string();
-            } catch (Exception e) {
-                e.printStackTrace();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                String body = response.toString();
+                Log.i(LOG_TAG, body); // no need inside run()
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d("BODY: ", body); // must be inside run()
+                    }
+                });
             }
 
-            return "";
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            Log.i("response body = ", result);
-        }
+            @Override
+            public void onFailure(Call call, IOException e) {
+                String exception = e.toString();
+                Log.e(LOG_TAG, exception); // no need inside run()
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d("EXCEPTION: ", exception); // must be inside run()
+                    }
+                });
+            }
+        });
     }
 }
+
