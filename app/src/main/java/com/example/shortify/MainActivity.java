@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.shortify.history.HistoryActivity;
+import com.example.shortify.http.RequestGenerator;
 import com.example.shortify.http.POST;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,7 +31,12 @@ public class MainActivity extends AppCompatActivity {
 
 //                    new POST().post(jsonPayload.toString());
 
-                    new POST().post(url.getText().toString());
+
+                    new RequestGenerator(getApplicationContext())
+                            .SetParams("bitly", url.getText().toString())
+                            .GetRequest()
+                            .POST();
+
 
                     // process(response) -> short url, add to db, add to screen, copy to clipboard, toast, error proccessing
 
