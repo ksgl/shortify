@@ -5,7 +5,7 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-@Database(entities = {LinkModel.class}, version = 1)
+@Database(entities = {LinkModel.class}, version = 2)
 public abstract class LinkDatabase extends RoomDatabase {
 
     private static LinkDatabase INSTANCE;
@@ -14,6 +14,7 @@ public abstract class LinkDatabase extends RoomDatabase {
         if (INSTANCE == null) {
             INSTANCE =
                     Room.databaseBuilder(context.getApplicationContext(), LinkDatabase.class, "link_db")
+                            .fallbackToDestructiveMigration()
                             .build();
         }
         return INSTANCE;
