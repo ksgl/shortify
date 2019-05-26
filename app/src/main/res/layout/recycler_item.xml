@@ -21,6 +21,13 @@
             android:layout_marginTop="15dp"
             android:fontFamily="sans-serif" />
 
+        <ImageView
+            android:id="@+id/can_be_copied_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/short_url_tv"
+            android:src="@drawable/ic_copied"/>
+
         <TextView
             android:id="@+id/original_url_tv"
             android:layout_width="wrap_content"
@@ -36,21 +43,20 @@
             android:id="@+id/date_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/starred_tv"
+            android:layout_below="@+id/starred_ib"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="60dp"
             android:fontFamily="sans-serif" />
 
-        <TextView
-            android:id="@+id/starred_tv"
+        <ImageButton
+            android:id="@+id/starred_ib"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="60dp"
-            android:fontFamily="sans-serif" />
+            android:layout_marginEnd="60dp" />
 
     </RelativeLayout>
 

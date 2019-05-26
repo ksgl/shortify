@@ -5,10 +5,17 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.shortify.database.LinkModel;
 import com.example.shortify.history.LinkViewModel;
 import com.example.shortify.common.Util;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -18,10 +25,10 @@ import java.util.Date;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.OkHttpClient;
-import okhttp3.MultipartBody;
 import okhttp3.Response;
 import android.view.MotionEvent;
 import android.view.View;
@@ -92,7 +99,6 @@ final public class RequestProcessor {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
 
         switch (this.service) {

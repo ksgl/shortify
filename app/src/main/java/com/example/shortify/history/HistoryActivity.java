@@ -2,7 +2,6 @@ package com.example.shortify.history;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -15,7 +14,6 @@ import com.example.shortify.R;
 import com.example.shortify.database.LinkModel;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity {
@@ -23,28 +21,22 @@ public class HistoryActivity extends AppCompatActivity {
     private LinkViewModel viewModel;
     private RecyclerViewAdapter recyclerViewAdapter;
     private RecyclerView recyclerView;
+    private boolean favsClicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-// hey
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
         this.viewModel = ViewModelProviders.of(this).get(LinkViewModel.class);
 
-//        viewModel.add(new LinkModel("yandex.ru","y.r", true));
-//        viewModel.add(new LinkModel("mmmmmmm.ru","m.r",true));
 
         recyclerView = findViewById(R.id.recycler_view);
-        recyclerViewAdapter = new RecyclerViewAdapter(new ArrayList<LinkModel>());
+        recyclerViewAdapter = new RecyclerViewAdapter(new ArrayList<LinkModel>(), this.viewModel, this);
 
 
-        /*CARDVIEW*/
         final RecyclerView.LayoutManager layout = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(layout);
-
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(recyclerViewAdapter);
 
         this.viewModel.getLinkList().observe(HistoryActivity.this, new Observer<List<LinkModel>>() {
@@ -54,19 +46,30 @@ public class HistoryActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton remove = findViewById(R.id.fab);
+        remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 viewModel.removeAll();
             }
         });
-    }
 
-    public void addLink(String longUrl, String shortUrl) {
-        Date date = new Date();
-        String strDate = date.toString();
-//        this.viewModel.add(new LinkModel(longUrl,shortUrl, strDate, false));
-
+//        FloatingActionButton fav = findViewById(R.id.favourites_fab);
+//
+//        fav.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                    viewModel.getFavouritesList().observe(HistoryActivity.this, new Observer<List<LinkModel>>() {
+//                        @Override
+//                        public void onChanged(@Nullable List<LinkModel> l) {
+//                            if (viewModel.getFavouritesList().getValue().isEmpty()) {
+//                                Toast.makeText(view.getContext(), "No favourites", Toast.LENGTH_SHORT).show();
+//                            } else {
+//                                recyclerViewAdapter.addItems(l);
+//                            }
+//                        }
+//                    });
+//            }
+//        });
     }
 }
