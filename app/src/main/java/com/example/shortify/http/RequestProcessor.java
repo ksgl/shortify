@@ -1,11 +1,17 @@
 package com.example.shortify.http;
 
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
 
+import com.example.shortify.database.LinkModel;
+import com.example.shortify.history.LinkViewModel;
 
 import java.io.IOException;
+import java.util.Date;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -16,9 +22,16 @@ import okhttp3.OkHttpClient;
 import okhttp3.MultipartBody;
 import okhttp3.Response;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.shortify.R;
+
 import org.json.*;
+
+import static android.content.Context.CLIPBOARD_SERVICE;
 
 // RequestProcessor generates API request counting on service selected
 final public class RequestProcessor {
@@ -27,9 +40,13 @@ final public class RequestProcessor {
     private String service = "";
     private Request APIRequest;
     private Context ctx;
+    private TextView view_url;
+    private LinkViewModel viewModel;
 
-    public RequestProcessor(Context ctx) {
+
+    public RequestProcessor(Context ctx, TextView view_url) {
         this.ctx = ctx;
+        this.view_url = view_url;
     }
 
     public RequestProcessor SetParams(String service, String longUrl) {
@@ -114,7 +131,10 @@ final public class RequestProcessor {
         }
 
         this.shortUrl = shortUrl;
-        Toast.makeText(this.ctx, shortUrl, Toast.LENGTH_SHORT).show();
+//        copyToClipboard(this.shortUrl);
+        addToHistory();
+        setOnTouchListener();
+        showUrl(this.shortUrl);
         return this.shortUrl;
     }
 
@@ -126,11 +146,9 @@ final public class RequestProcessor {
             @Override
             public void onResponse(Call call, Response response) {
                 String body = response.body().toString();
-//                Log.i(); // no need inside run()
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-//                        Log.d("BODY: ", body); // must be inside run()
                         String res = ParseResponse(response);
                     }
                 });
@@ -139,7 +157,6 @@ final public class RequestProcessor {
             @Override
             public void onFailure(Call call, IOException e) {
                 String exception = e.toString();
-//                Log.e(LOG_TAG, exception); // no need inside run()
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -154,6 +171,34 @@ final public class RequestProcessor {
 
     private final void showToast(String text) {
         Toast.makeText(this.ctx, text, Toast.LENGTH_SHORT).show();
+    }
+
+    private  final void showUrl(String url) {
+        this.view_url.setText(url);
+    }
+
+    private final void copyToClipboard() {
+        final android.content.ClipboardManager clipboardManager = (ClipboardManager)this.ctx.getSystemService(CLIPBOARD_SERVICE);
+        ClipData clipData = ClipData.newPlainText("Short URL", this.shortUrl);
+        clipboardManager.setPrimaryClip(clipData);
+    }
+
+    private final void addToHistory() {
+        Date date = new Date();
+        String strDate = date.toString();
+        this.viewModel = ViewModelProviders.of(this.ct).get(LinkViewModel.class);
+//        this.viewModel.add(new LinkModel(longUrl, shortUrl, "kek", false));
+    }
+
+    private void setOnTouchListener() {
+        this.view_url.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                copyToClipboard();
+                showToast("Copied to clipboard");
+                return true;
+            }
+        });
     }
 
 }
