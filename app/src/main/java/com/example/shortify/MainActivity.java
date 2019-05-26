@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import com.example.shortify.history.HistoryActivity;
 import com.example.shortify.http.RequestGenerator;
 import com.example.shortify.http.POST;
+import com.example.shortify.http.RequestProcessor;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                 EditText url = findViewById(R.id.url_et);
 //                JSONObject jsonPayload = new JSONObject();
                 try {
-                    new RequestGenerator(getApplicationContext())
+                    new RequestProcessor(getApplicationContext())
                             .SetParams(spinner.getSelectedItem().toString(), url.getText().toString())
                             .CreateRequest()
                             .Send();
