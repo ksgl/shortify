@@ -52,10 +52,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText url = findViewById(R.id.url_et);
-//                JSONObject jsonPayload = new JSONObject();
                 try {
-                    new RequestProcessor(getApplicationContext(), findViewById(R.id.short_url),
-                            viewModel, findViewById(R.id.shareBtn))
+                    new RequestProcessor(getApplicationContext(), findViewById(R.id.short_url), viewModel)
                             .SetParams(spinner.getSelectedItem().toString(), url.getText().toString())
                             .CreateRequest()
                             .Send();

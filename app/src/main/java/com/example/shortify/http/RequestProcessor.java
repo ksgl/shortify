@@ -15,6 +15,9 @@ import com.example.shortify.history.HistoryActivity;
 import com.example.shortify.history.LinkViewModel;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import okhttp3.Call;
@@ -47,13 +50,10 @@ final public class RequestProcessor extends MainActivity {
     private Context ctx;
     private TextView view_url;
     private LinkViewModel viewModel;
-    private  ImageButton shareBtn;
 
-
-    public RequestProcessor(Context ctx, TextView view_url, LinkViewModel viewModel, ImageButton shareBtn) {
+    public RequestProcessor(Context ctx, TextView view_url, LinkViewModel viewModel) {
         this.ctx = ctx;
         this.view_url = view_url;
-        this.shareBtn = shareBtn;
         this.viewModel = viewModel;
     }
 
@@ -142,7 +142,6 @@ final public class RequestProcessor extends MainActivity {
 //        copyToClipboard(this.shortUrl);
         addToHistory();
         setOnTouchListener();
-        setShareListener();
         showUrl(this.shortUrl);
         return this.shortUrl;
     }
@@ -193,28 +192,29 @@ final public class RequestProcessor extends MainActivity {
     }
 
     private final void addToHistory() {
-        Date date = new Date();
-        String strDate = date.toString();
+        Date date = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("dd MMM, HH:mm");
+        String strDate = dateFormat.format(date);
+        showToast(strDate);
 //        this.viewModel = ViewModelProviders.of((HistoryActivity) this.ctx).get(LinkViewModel.class);
         this.viewModel.add(new LinkModel(this.longUrl, this.shortUrl,false, strDate));
     }
 
-    private final void setShareListener() {
-//        this.shareBtn.setTag(new Object() = this.shortUrl);
-        this.shareBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showToast("kek");
-                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                String shareBody = shortUrl;
-//                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Short link");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                sharingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                ctx.startActivity(Intent.createChooser(sharingIntent, "Share via"));
-            }
-        });
-    }
+//    private final void setShareListener() {
+//        this.shareBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showToast("kek");
+//                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+//                sharingIntent.setType("text/plain");
+//                String shareBody = shortUrl;
+////                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Short link");
+//                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+////                sharingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(Intent.createChooser(sharingIntent, "Share via"));
+//            }
+//        });
+//    }
 
     private void setOnTouchListener() {
         this.view_url.setOnTouchListener(new View.OnTouchListener() {
