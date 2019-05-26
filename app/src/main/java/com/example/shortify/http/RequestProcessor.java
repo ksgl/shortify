@@ -188,10 +188,10 @@ final public class RequestProcessor {
     }
 
     private final void addToHistory() {
-//        Date date = new Date();
-//        String strDate = date.toString();
+        Date date = new Date();
+        String strDate = date.toString();
 //        this.viewModel = ViewModelProviders.of((HistoryActivity) this.ctx).get(LinkViewModel.class);
-        this.viewModel.add(new LinkModel(this.longUrl, this.shortUrl, false));
+        this.viewModel.add(new LinkModel(this.longUrl, this.shortUrl,false, strDate));
     }
 
     private void setOnTouchListener() {
