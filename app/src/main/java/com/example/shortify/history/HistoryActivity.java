@@ -15,6 +15,7 @@ import com.example.shortify.R;
 import com.example.shortify.database.LinkModel;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity {
@@ -65,7 +66,7 @@ public class HistoryActivity extends AppCompatActivity {
     public void addLink(String longUrl, String shortUrl) {
         Date date = new Date();
         String strDate = date.toString();
-        this.viewModel.add(new LinkModel(longUrl,shortUrl, strDate, false));
+//        this.viewModel.add(new LinkModel(longUrl,shortUrl, strDate, false));
 
     }
 }
