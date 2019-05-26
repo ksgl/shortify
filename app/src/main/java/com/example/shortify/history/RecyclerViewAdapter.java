@@ -80,18 +80,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         });
 
         holder.shareBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Util.ShowToast(ctx, "kek");
-                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                String shareBody = linkModel.getShortURL();
+                                               @Override
+                                               public void onClick(View v) {
+                                                   Util.ShowToast(ctx, "kek");
+                                                   Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                                                   sharingIntent.setType("text/plain");
+                                                   String shareBody = linkModel.getShortURL();
 //                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Short link");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                                                   sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
 //                sharingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                ctx.startActivity(Intent.createChooser(sharingIntent, "Share via"));
+                                                   ctx.startActivity(Intent.createChooser(sharingIntent, "Share via"));
 
-            }
+                                               }
+                                           });
 
         holder.copyImageButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -128,8 +129,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             shortURLTextView = view.findViewById(R.id.short_url_tv);
             dateTextView = view.findViewById(R.id.date_tv);
             starredImageButton = view.findViewById(R.id.starred_ib);
-            shareBtn = view.findViewById(R.id.shareBtn);
             copyImageButton = view.findViewById(R.id.copy_ib);
+            shareBtn = view.findViewById(R.id.share_btn);
         }
     }
 }
