@@ -2,7 +2,6 @@ package com.example.shortify.history;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -34,7 +33,7 @@ public class HistoryActivity extends AppCompatActivity {
         this.viewModel = ViewModelProviders.of(this).get(LinkViewModel.class);
 
         viewModel.add(new LinkModel("yandex.ru","y.r", true));
-        viewModel.add(new LinkModel("mmmmmmm.ru","m.r",true));
+//        viewModel.add(new LinkModel("mmmmmmm.ru","m.r",false));
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerViewAdapter = new RecyclerViewAdapter(new ArrayList<LinkModel>());

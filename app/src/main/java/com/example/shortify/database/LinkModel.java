@@ -2,6 +2,7 @@ package com.example.shortify.database;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+
 @Entity
 public class LinkModel {
 
@@ -28,4 +29,7 @@ public class LinkModel {
     public boolean getStarred() {
         return starred;
     }
+
+    public void setStarred(boolean s) {
+        this.starred = s;}
 }
