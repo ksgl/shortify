@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.shortify.history.HistoryActivity;
 import com.example.shortify.http.RequestProcessor;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
                 EditText url = findViewById(R.id.url_et);
 //                JSONObject jsonPayload = new JSONObject();
                 try {
-                    new RequestProcessor(getApplicationContext())
+                    new RequestProcessor(getApplicationContext(), findViewById(R.id.short_url))
                             .SetParams(spinner.getSelectedItem().toString(), url.getText().toString())
                             .CreateRequest()
                             .Send();
