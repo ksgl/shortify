@@ -10,12 +10,14 @@ public class LinkModel {
     public int id;
     private String originalURL;
     private String shortURL;
-    boolean starred;
+    private String date;
+    private boolean starred;
 
-    public LinkModel(String originalURL, String shortURL, boolean starred) {
+    public LinkModel(String originalURL, String shortURL, boolean starred, String date) {
         this.originalURL = originalURL;
         this.shortURL = shortURL;
         this.starred = starred;
+        this.date = date;
     }
 
     public String getOriginalURL() {
@@ -24,6 +26,10 @@ public class LinkModel {
 
     public String getShortURL() {
         return this.shortURL;
+    }
+
+    public String getDate() {
+        return date;
     }
 
     public boolean getStarred() {

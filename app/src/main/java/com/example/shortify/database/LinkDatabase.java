@@ -5,7 +5,7 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-@Database(entities = {LinkModel.class}, version = 2)
+@Database(entities = {LinkModel.class}, version = 3)
 public abstract class LinkDatabase extends RoomDatabase {
 
     private static LinkDatabase INSTANCE;
