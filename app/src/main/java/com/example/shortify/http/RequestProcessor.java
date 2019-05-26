@@ -13,54 +13,55 @@ import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.OkHttpClient;
+import okhttp3.MultipartBody;
 import okhttp3.Response;
 import android.util.Log;
 import android.widget.Toast;
 
 import org.json.*;
 
-// RequestGenerator generates API request counting on service selected
-final public class RequestGenerator {
+// RequestProcessor generates API request counting on service selected
+final public class RequestProcessor {
     private String longUrl = "";
     private String shortUrl = "";
     private String service = "";
     private Request APIRequest;
     private Context ctx;
 
-    public RequestGenerator(Context ctx) {
+    public RequestProcessor(Context ctx) {
         this.ctx = ctx;
     }
 
-    public RequestGenerator SetParams(String service, String longUrl) {
+    public RequestProcessor SetParams(String service, String longUrl) {
         this.service = service;
         this.longUrl = longUrl;
         return this;
     }
 
-    public RequestGenerator GetRequest() throws IllegalArgumentException {
+    public RequestProcessor CreateRequest() throws IllegalArgumentException {
         String bitlyAPIToken = "fc11278ca50671dbd19332c8698026c7a9cd4123";
         String reqUrl ="";
         Request.Builder request = new Request.Builder();
 
         switch (this.service) {
-            case "bitly":
+            case "bit.ly":
                 reqUrl = "https://api-ssl.bitly.com/v3/shorten" +"?access_token="
                         + bitlyAPIToken + "&longUrl=" + this.longUrl;
                 this.APIRequest = request.url(reqUrl).build();
-//                this.longUrl = "https://api-ssl.bitly.com/v3/shorten?access_token=fc11278ca50671dbd19332c8698026c7a9cd4123&longUrl=";
                 break;
             case "cleanuri":
                 reqUrl = "https://cleanuri.com/api/v1/shorten";
-                RequestBody body = RequestBody.create(MediaType.get("text"), "url="+this.longUrl);
-                this.APIRequest = request.post(body).url(reqUrl).build();
+                RequestBody requestBody = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("url", this.longUrl)
+                        .build();
+                this.APIRequest = request.post(requestBody).url(reqUrl).build();
                 break;
             default:
                 throw new IllegalArgumentException("Incorrect service " + this.service);
         }
 
         return this;
-
-//        return new Request.Builder().url(reqUrl).build();
     }
 
     public String ParseResponse(Response res) throws IllegalArgumentException {
@@ -79,7 +80,7 @@ final public class RequestGenerator {
 
 
         switch (this.service) {
-            case "bitly":
+            case "bit.ly":
                 try {
                     if (Integer.parseInt(json.get("status_code").toString()) != 200) {
                         showToast("Invlaid URL!");
@@ -117,7 +118,7 @@ final public class RequestGenerator {
         return this.shortUrl;
     }
 
-    public void POST() {
+    public void Send() {
         final Handler handler = new Handler();
         OkHttpClient client = new OkHttpClient();
 
