@@ -12,7 +12,7 @@ import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 @Dao
 public interface LinkDAO {
 
-    @Query("SELECT * FROM LinkModel ORDER BY starred")
+    @Query("SELECT * FROM LinkModel ORDER BY starred, date")
     LiveData<List<LinkModel>> getAll();
 
     @Insert(onConflict = REPLACE)
