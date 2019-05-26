@@ -3,4 +3,10 @@
     <string name="shorten_btn_str">shorten url</string>
     <string name="history_btn_str">history</string>
     <string name="input_url_hint_str">url to shorten</string>
+
+    <string-array name="services">
+        <item>bit.ly</item>
+        <item>cleanuri</item>
+    </string-array>
+
 </resources>
