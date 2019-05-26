@@ -1,5 +1,7 @@
 package com.example.shortify;
 
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,12 +13,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.shortify.history.HistoryActivity;
+import com.example.shortify.history.LinkViewModel;
 import com.example.shortify.http.RequestProcessor;
 
 public class MainActivity extends AppCompatActivity {
 
+    LinkViewModel viewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.viewModel = ViewModelProviders.of(this).get(LinkViewModel .class);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -34,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 EditText url = findViewById(R.id.url_et);
 //                JSONObject jsonPayload = new JSONObject();
                 try {
-                    new RequestProcessor(getApplicationContext(), findViewById(R.id.short_url))
+                    new RequestProcessor(getApplicationContext(), findViewById(R.id.short_url), viewModel)
                             .SetParams(spinner.getSelectedItem().toString(), url.getText().toString())
                             .CreateRequest()
                             .Send();

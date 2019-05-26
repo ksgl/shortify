@@ -1,5 +1,6 @@
 package com.example.shortify.http;
 
+import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -8,6 +9,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.example.shortify.database.LinkModel;
+import com.example.shortify.history.HistoryActivity;
 import com.example.shortify.history.LinkViewModel;
 
 import java.io.IOException;
@@ -41,12 +43,14 @@ final public class RequestProcessor {
     private Request APIRequest;
     private Context ctx;
     private TextView view_url;
+//    private LinkViewModel viewModel;
     private LinkViewModel viewModel;
 
 
-    public RequestProcessor(Context ctx, TextView view_url) {
+    public RequestProcessor(Context ctx, TextView view_url, LinkViewModel viewModel) {
         this.ctx = ctx;
         this.view_url = view_url;
+        this.viewModel = viewModel;
     }
 
     public RequestProcessor SetParams(String service, String longUrl) {
@@ -184,10 +188,10 @@ final public class RequestProcessor {
     }
 
     private final void addToHistory() {
-        Date date = new Date();
-        String strDate = date.toString();
-//        this.viewModel = ViewModelProviders.of(this.ct).get(LinkViewModel.class);
-//        this.viewModel.add(new LinkModel(longUrl, shortUrl, "kek", false));
+//        Date date = new Date();
+//        String strDate = date.toString();
+//        this.viewModel = ViewModelProviders.of((HistoryActivity) this.ctx).get(LinkViewModel.class);
+        this.viewModel.add(new LinkModel(this.longUrl, this.shortUrl, false));
     }
 
     private void setOnTouchListener() {

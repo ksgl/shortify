@@ -33,8 +33,8 @@ public class HistoryActivity extends AppCompatActivity {
 
         this.viewModel = ViewModelProviders.of(this).get(LinkViewModel.class);
 
-        viewModel.add(new LinkModel("yandex.ru","y.r", true));
-        viewModel.add(new LinkModel("mmmmmmm.ru","m.r",true));
+//        viewModel.add(new LinkModel("yandex.ru","y.r", true));
+//        viewModel.add(new LinkModel("mmmmmmm.ru","m.r",true));
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerViewAdapter = new RecyclerViewAdapter(new ArrayList<LinkModel>());
