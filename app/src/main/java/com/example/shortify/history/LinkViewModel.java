@@ -12,7 +12,7 @@ import java.util.List;
 
 public class LinkViewModel extends AndroidViewModel {
 
-    private final LiveData<List<LinkModel>> linkList;
+    private LiveData<List<LinkModel>> linkList;
     private LinkDatabase linkDatabase;
 
     public LinkViewModel(Application application) {
@@ -57,6 +57,25 @@ public class LinkViewModel extends AndroidViewModel {
         @Override
         protected Void doInBackground(final LinkModel... params) {
             db.linkModel().addLink(params[0]);
+            return null;
+        }
+    }
+
+
+    public void changeStarred(final LinkModel link) {
+        new changeStarredAsyncTask(linkDatabase).execute(link);
+    }
+
+
+    private static class changeStarredAsyncTask extends AsyncTask<LinkModel, Void, Void> {
+        private LinkDatabase db;
+        changeStarredAsyncTask(LinkDatabase linkDatabase) {
+            db = linkDatabase;
+        }
+
+        @Override
+        protected Void doInBackground(final LinkModel... params) {
+            db.linkModel().updateStarred(params[0]);
             return null;
         }
     }

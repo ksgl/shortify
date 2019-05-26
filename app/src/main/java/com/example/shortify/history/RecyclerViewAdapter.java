@@ -1,7 +1,6 @@
 package com.example.shortify.history;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,12 @@ import java.util.List;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder> {
 
     private List<LinkModel> linkModelList;
-    public RecyclerViewAdapter(List<LinkModel> linkModelList) {
+    private LinkViewModel viewModel;
+
+
+    public RecyclerViewAdapter(List<LinkModel> linkModelList, LinkViewModel viewModel) {
         this.linkModelList = linkModelList;
+        this.viewModel = viewModel;
     }
 
     @Override
@@ -30,9 +33,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(final RecyclerViewHolder holder, int position) {
         LinkModel linkModel = linkModelList.get(position);
-
-        Log.d("RV: ", linkModel.getOriginalURL() + " " + Boolean.toString(linkModel.getStarred()));
-
 
         holder.originalURLTextView.setText(linkModel.getOriginalURL());
         holder.shortURLTextView.setText(linkModel.getShortURL());
@@ -55,6 +55,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 }
 
                 linkModel.setStarred(!starred);
+                viewModel.changeStarred(linkModel);
                 notifyDataSetChanged();
             }
         });

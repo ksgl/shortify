@@ -37,7 +37,7 @@ public class HistoryActivity extends AppCompatActivity {
 
 
         recyclerView = findViewById(R.id.recycler_view);
-        recyclerViewAdapter = new RecyclerViewAdapter(new ArrayList<LinkModel>());
+        recyclerViewAdapter = new RecyclerViewAdapter(new ArrayList<LinkModel>(), this.viewModel);
 
 
         /*CARDVIEW*/
