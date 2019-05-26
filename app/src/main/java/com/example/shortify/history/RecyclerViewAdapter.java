@@ -36,6 +36,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.originalURLTextView.setText(linkModel.getOriginalURL());
         holder.shortURLTextView.setText(linkModel.getShortURL());
+        holder.dateTextView.setText(linkModel.getDate());
 
         if (linkModel.getStarred()) {
             holder.starredImageButton.setBackgroundResource(R.drawable.ic_starred);
@@ -72,12 +73,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     static class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private TextView originalURLTextView;
         private TextView shortURLTextView;
+        private TextView dateTextView;
         private ImageButton starredImageButton;
 
         RecyclerViewHolder(View view) {
             super(view);
             originalURLTextView = view.findViewById(R.id.original_url_tv);
             shortURLTextView = view.findViewById(R.id.short_url_tv);
+            dateTextView = view.findViewById(R.id.date_tv);
             starredImageButton = view.findViewById(R.id.starred_ib);
         }
     }
