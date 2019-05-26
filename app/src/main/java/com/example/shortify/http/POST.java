@@ -12,11 +12,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-//import okhttp3.Callback;
-
 public class POST {
-    public static final MediaType JSON
-            = MediaType.get("application/json; charset=utf-8");
+    public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
     OkHttpClient client = new OkHttpClient();
     private static final String LOG_TAG = "OkHTTPServer:";

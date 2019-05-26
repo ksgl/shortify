@@ -9,9 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-
 import com.example.shortify.history.HistoryActivity;
+import com.example.shortify.http.RequestProcessor;
 import com.example.shortify.http.POST;
+import com.example.shortify.http.RequestProcessor;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,13 +21,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Spinner spinner = findViewById(R.id.services_spinner);
+        Button shortenBtn = findViewById(R.id.shorten_btn);
+
+        Spinner spinner = (Spinner) findViewById(R.id.services_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.services, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-
-        Button shortenBtn = findViewById(R.id.shorten_btn);
 
         shortenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,17 +35,24 @@ public class MainActivity extends AppCompatActivity {
                 EditText url = findViewById(R.id.url_et);
 //                JSONObject jsonPayload = new JSONObject();
                 try {
-//                    jsonPayload.put("access_token", "fc11278ca50671dbd19332c8698026c7a9cd4123");
-//                    jsonPayload.put("longUrl", url.getText().toString());
-
-//                    new POST().post(jsonPayload.toString());
-
-                    new POST().post(url.getText().toString());
-
-                    // process(response) -> short url, add to db, add to screen, copy to clipboard, toast, error proccessing
-
+                    new RequestProcessor(getApplicationContext())
+                            .SetParams(spinner.getSelectedItem().toString(), url.getText().toString())
+                            .CreateRequest()
+                            .Send();
                 } catch (Exception e) {
                     e.printStackTrace();
+                }
+            }
+        });
+
+        Button historyBtn = findViewById(R.id.history_btn);
+
+        historyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(v.getContext(), HistoryActivity.class);
+                startActivity(intent);
             }
         });
     }
