@@ -76,6 +76,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Toast.makeText(ctx, "Copied to clipboard!", Toast.LENGTH_SHORT).show();
             }
         });
+
+        holder.copyImageButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                final android.content.ClipboardManager clipboardManager = (ClipboardManager) ctx.getSystemService(CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("Short URL", linkModel.getShortURL());
+                clipboardManager.setPrimaryClip(clipData);
+                Toast.makeText(ctx, "Copied to clipboard!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -93,6 +103,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         private TextView shortURLTextView;
         private TextView dateTextView;
         private ImageButton starredImageButton;
+        private ImageButton copyImageButton;
 
         RecyclerViewHolder(View view) {
             super(view);
@@ -100,6 +111,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             shortURLTextView = view.findViewById(R.id.short_url_tv);
             dateTextView = view.findViewById(R.id.date_tv);
             starredImageButton = view.findViewById(R.id.starred_ib);
+            copyImageButton = view.findViewById(R.id.copy_ib);
         }
     }
 }

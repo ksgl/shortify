@@ -21,8 +21,8 @@
             android:layout_marginTop="15dp"
             android:fontFamily="sans-serif" />
 
-        <ImageView
-            android:id="@+id/can_be_copied_iv"
+        <ImageButton
+            android:id="@+id/copy_ib"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/short_url_tv"
