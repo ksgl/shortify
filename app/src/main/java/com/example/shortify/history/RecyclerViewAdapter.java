@@ -82,13 +82,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.shareBtn.setOnClickListener(new View.OnClickListener() {
                                                @Override
                                                public void onClick(View v) {
-                                                   Util.ShowToast(ctx, "kek");
                                                    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                                                    sharingIntent.setType("text/plain");
                                                    String shareBody = linkModel.getShortURL();
 //                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Short link");
                                                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-//                sharingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                    ctx.startActivity(Intent.createChooser(sharingIntent, "Share via"));
 
                                                }
