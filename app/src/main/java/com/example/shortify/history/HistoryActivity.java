@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -36,7 +36,13 @@ public class HistoryActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerViewAdapter = new RecyclerViewAdapter(new ArrayList<LinkModel>());
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+        /*CARDVIEW*/
+        final RecyclerView.LayoutManager layout = new GridLayoutManager(this, 1);
+        recyclerView.setLayoutManager(layout);
+
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(recyclerViewAdapter);
 
         viewModel.getLinkList().observe(HistoryActivity.this, new Observer<List<LinkModel>>() {
