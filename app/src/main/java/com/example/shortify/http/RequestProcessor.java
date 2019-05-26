@@ -5,9 +5,11 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.util.Log;
 
+import com.example.shortify.MainActivity;
 import com.example.shortify.database.LinkModel;
 import com.example.shortify.history.HistoryActivity;
 import com.example.shortify.history.LinkViewModel;
@@ -26,6 +28,7 @@ import okhttp3.Response;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,20 +39,21 @@ import org.json.*;
 import static android.content.Context.CLIPBOARD_SERVICE;
 
 // RequestProcessor generates API request counting on service selected
-final public class RequestProcessor {
+final public class RequestProcessor extends MainActivity {
     private String longUrl = "";
     private String shortUrl = "";
     private String service = "";
     private Request APIRequest;
     private Context ctx;
     private TextView view_url;
-//    private LinkViewModel viewModel;
     private LinkViewModel viewModel;
+    private  ImageButton shareBtn;
 
 
-    public RequestProcessor(Context ctx, TextView view_url, LinkViewModel viewModel) {
+    public RequestProcessor(Context ctx, TextView view_url, LinkViewModel viewModel, ImageButton shareBtn) {
         this.ctx = ctx;
         this.view_url = view_url;
+        this.shareBtn = shareBtn;
         this.viewModel = viewModel;
     }
 
@@ -138,6 +142,7 @@ final public class RequestProcessor {
 //        copyToClipboard(this.shortUrl);
         addToHistory();
         setOnTouchListener();
+        setShareListener();
         showUrl(this.shortUrl);
         return this.shortUrl;
     }
@@ -181,9 +186,9 @@ final public class RequestProcessor {
         this.view_url.setText(url);
     }
 
-    private final void copyToClipboard() {
+    private final void copyToClipboard(String text) {
         final android.content.ClipboardManager clipboardManager = (ClipboardManager)this.ctx.getSystemService(CLIPBOARD_SERVICE);
-        ClipData clipData = ClipData.newPlainText("Short URL", this.shortUrl);
+        ClipData clipData = ClipData.newPlainText("Short URL", text);
         clipboardManager.setPrimaryClip(clipData);
     }
 
@@ -194,11 +199,28 @@ final public class RequestProcessor {
         this.viewModel.add(new LinkModel(this.longUrl, this.shortUrl,false, strDate));
     }
 
+    private final void setShareListener() {
+//        this.shareBtn.setTag(new Object() = this.shortUrl);
+        this.shareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showToast("kek");
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBody = shortUrl;
+//                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Short link");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                sharingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                ctx.startActivity(Intent.createChooser(sharingIntent, "Share via"));
+            }
+        });
+    }
+
     private void setOnTouchListener() {
         this.view_url.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                copyToClipboard();
+                copyToClipboard(shortUrl);
                 showToast("Copied to clipboard");
                 return true;
             }
