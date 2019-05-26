@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.shortify.history.HistoryActivity;
-import com.example.shortify.http.RequestGenerator;
+import com.example.shortify.http.RequestProcessor;
 import com.example.shortify.http.POST;
 import com.example.shortify.http.RequestProcessor;
 
