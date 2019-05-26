@@ -19,7 +19,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
-            android:text="SHORT" />
+            android:fontFamily="sans-serif" />
 
         <TextView
             android:id="@+id/original_url_tv"
@@ -30,8 +30,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="15dp"
-            android:fontFamily="sans-serif"
-            android:text="LONG" />
+            android:fontFamily="sans-serif"  />
 
         <TextView
             android:id="@+id/date_tv"
@@ -41,7 +40,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="60dp"
-            android:text="25.01.20" />
+            android:fontFamily="sans-serif" />
 
         <TextView
             android:id="@+id/starred_tv"
@@ -51,7 +50,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="60dp"
-            android:text="Star" />
+            android:fontFamily="sans-serif" />
 
     </RelativeLayout>
 
