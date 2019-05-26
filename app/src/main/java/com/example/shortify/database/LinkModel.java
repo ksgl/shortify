@@ -19,15 +19,15 @@ public class LinkModel {
     }
 
     public String getOriginalURL() {
-        return originalURL;
+        return this.originalURL;
     }
 
     public String getShortURL() {
-        return shortURL;
+        return this.shortURL;
     }
 
     public boolean getStarred() {
-        return starred;
+        return this.starred;
     }
 
     public void setStarred(boolean s) {
