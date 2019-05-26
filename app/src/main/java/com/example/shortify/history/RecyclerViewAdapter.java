@@ -3,6 +3,7 @@ package com.example.shortify.history;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.shortify.R;
+import com.example.shortify.common.Util;
 import com.example.shortify.database.LinkModel;
 
 import java.util.List;
@@ -76,6 +78,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Toast.makeText(ctx, "Copied to clipboard!", Toast.LENGTH_SHORT).show();
             }
         });
+
+        holder.shareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Util.ShowToast(ctx, "kek");
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBody = linkModel.getShortURL();
+//                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Short link");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+//                sharingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                ctx.startActivity(Intent.createChooser(sharingIntent, "Share via"));
+
+            }
+
+        });
     }
 
     @Override
@@ -93,6 +111,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         private TextView shortURLTextView;
         private TextView dateTextView;
         private ImageButton starredImageButton;
+        private ImageButton shareBtn;
 
         RecyclerViewHolder(View view) {
             super(view);
@@ -100,6 +119,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             shortURLTextView = view.findViewById(R.id.short_url_tv);
             dateTextView = view.findViewById(R.id.date_tv);
             starredImageButton = view.findViewById(R.id.starred_ib);
+            shareBtn = view.findViewById(R.id.shareBtn);
         }
     }
 }

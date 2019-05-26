@@ -7,7 +7,7 @@
     app:cardCornerRadius="6dp"
     app:cardElevation="6dp">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -19,6 +19,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
+            android:textSize="15dp"
             android:fontFamily="sans-serif" />
 
         <ImageView
@@ -43,10 +44,11 @@
             android:id="@+id/date_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/starred_ib"
+            android:layout_below="@+id/original_url_tv"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="60dp"
+            android:layout_marginBottom="20dp"
             android:fontFamily="sans-serif" />
 
         <ImageButton
@@ -57,6 +59,20 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="60dp" />
+
+        <ImageButton
+            android:id="@+id/shareBtn"
+            android:layout_width="42dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="29dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="185dp"
+            android:layout_marginBottom="40dp"
+            android:layout_toStartOf="@+id/starred_ib"
+            android:layout_toEndOf="@+id/can_be_copied_iv"
+            android:visibility="visible"
+            app:srcCompat="?attr/actionModeShareDrawable" />
 
     </RelativeLayout>
 
