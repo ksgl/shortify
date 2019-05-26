@@ -29,7 +29,7 @@ public class LinkModel {
     }
 
     public String getDate() {
-        return date;
+        return this.date;
     }
 
     public boolean getStarred() {

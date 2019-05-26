@@ -1,31 +1,38 @@
 package com.example.shortify.history;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.shortify.R;
 import com.example.shortify.database.LinkModel;
 
 import java.util.List;
 
+import static android.content.Context.CLIPBOARD_SERVICE;
+
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder> {
 
     private List<LinkModel> linkModelList;
     private LinkViewModel viewModel;
+    private Context ctx;
 
 
-    public RecyclerViewAdapter(List<LinkModel> linkModelList, LinkViewModel viewModel) {
+    public RecyclerViewAdapter(List<LinkModel> linkModelList, LinkViewModel viewModel, Context ctx) {
         this.linkModelList = linkModelList;
         this.viewModel = viewModel;
+        this.ctx = ctx;
     }
 
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        View v = inflater.inflate(R.layout.number_card, viewGroup, false);
         return new RecyclerViewHolder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_item, parent, false));
     }
@@ -57,6 +64,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 linkModel.setStarred(!starred);
                 viewModel.changeStarred(linkModel);
                 notifyDataSetChanged();
+            }
+        });
+
+        holder.shortURLTextView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                final android.content.ClipboardManager clipboardManager = (ClipboardManager) ctx.getSystemService(CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("Short URL", linkModel.getShortURL());
+                clipboardManager.setPrimaryClip(clipData);
+                Toast.makeText(ctx, "Copied to clipboard!", Toast.LENGTH_SHORT).show();
             }
         });
     }

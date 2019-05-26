@@ -1,37 +1,31 @@
 package com.example.shortify.http;
 
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
-
-import com.example.shortify.database.LinkModel;
-import com.example.shortify.history.HistoryActivity;
-import com.example.shortify.history.LinkViewModel;
-
-import java.io.IOException;
-import java.util.Date;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MediaType;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.OkHttpClient;
-import okhttp3.MultipartBody;
-import okhttp3.Response;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.shortify.R;
+import com.example.shortify.database.LinkModel;
+import com.example.shortify.history.LinkViewModel;
 
-import org.json.*;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.Date;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 
@@ -43,7 +37,6 @@ final public class RequestProcessor {
     private Request APIRequest;
     private Context ctx;
     private TextView view_url;
-//    private LinkViewModel viewModel;
     private LinkViewModel viewModel;
 
 
@@ -97,7 +90,6 @@ final public class RequestProcessor {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
 
         switch (this.service) {

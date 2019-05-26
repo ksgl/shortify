@@ -13,6 +13,7 @@ import java.util.List;
 public class LinkViewModel extends AndroidViewModel {
 
     private LiveData<List<LinkModel>> linkList;
+    private LiveData<List<LinkModel>> favouritesList;
     private LinkDatabase linkDatabase;
 
     public LinkViewModel(Application application) {
@@ -20,10 +21,15 @@ public class LinkViewModel extends AndroidViewModel {
 
         linkDatabase = LinkDatabase.getDatabase(this.getApplication());
         linkList = linkDatabase.linkModel().getAll();
+        favouritesList = linkDatabase.linkModel().getFavourites();
     }
 
     public LiveData<List<LinkModel>> getLinkList() {
-        return linkList;
+        return this.linkList;
+    }
+
+    public LiveData<List<LinkModel>> getFavouritesList() {
+        return this.favouritesList;
     }
 
     public void removeAll() {
