@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -34,11 +35,23 @@ public class MainActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+//        ImageButton shareBtn = findViewById(R.id.shareBtn);
+//        shareBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+//                sharingIntent.setType("text/plain");
+//                String shareBody = "kek";
+//                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Short link");
+//                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+//                startActivity(Intent.createChooser(sharingIntent, "Share via"));
+//            }
+//        });
+
         shortenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText url = findViewById(R.id.url_et);
-//                JSONObject jsonPayload = new JSONObject();
                 try {
                     new RequestProcessor(getApplicationContext(), findViewById(R.id.short_url), viewModel)
                             .SetParams(spinner.getSelectedItem().toString(), url.getText().toString())

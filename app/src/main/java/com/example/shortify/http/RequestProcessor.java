@@ -12,11 +12,15 @@ import android.widget.Toast;
 
 import com.example.shortify.database.LinkModel;
 import com.example.shortify.history.LinkViewModel;
+import com.example.shortify.common.Util;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import okhttp3.Call;
@@ -26,6 +30,12 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.*;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 
@@ -38,7 +48,6 @@ final public class RequestProcessor {
     private Context ctx;
     private TextView view_url;
     private LinkViewModel viewModel;
-
 
     public RequestProcessor(Context ctx, TextView view_url, LinkViewModel viewModel) {
         this.ctx = ctx;
@@ -96,11 +105,11 @@ final public class RequestProcessor {
             case "bit.ly":
                 try {
                     if (Integer.parseInt(json.get("status_code").toString()) != 200) {
-                        showToast("Invlaid URL!");
+                        Util.ShowToast(ctx, "Invlaid URL!");
                         return "";
                     }
                 } catch (JSONException e) {
-                    showToast("Something went wrong");
+                    Util.ShowToast(ctx, "Something went wrong");
                     Log.e("CRITICAL", "unexpected JSON exception while getting bitly status_code");
                 }
                 try {
@@ -112,7 +121,7 @@ final public class RequestProcessor {
                 break;
             case  "cleanuri":
                 if (res.code() != 200) {
-                    showToast("Invlaid URL!");
+                    Util.ShowToast(ctx, "Invlaid URL!");
                     return "";
                 }
                 try {
@@ -127,7 +136,6 @@ final public class RequestProcessor {
         }
 
         this.shortUrl = shortUrl;
-//        copyToClipboard(this.shortUrl);
         addToHistory();
         setOnTouchListener();
         showUrl(this.shortUrl);
@@ -156,7 +164,7 @@ final public class RequestProcessor {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        showToast("Network error");
+                        Util.ShowToast(ctx, "Network error");
                         Log.d("EXCEPTION: ", exception); // must be inside run()
                     }
                 });
@@ -165,33 +173,51 @@ final public class RequestProcessor {
 
     }
 
-    private final void showToast(String text) {
-        Toast.makeText(this.ctx, text, Toast.LENGTH_SHORT).show();
-    }
+//    private final void Util.ShowToast(ctx, String text) {
+//        Toast.makeText(this.ctx, text, Toast.LENGTH_SHORT).show();
+//    }
 
     private  final void showUrl(String url) {
         this.view_url.setText(url);
     }
-
-    private final void copyToClipboard() {
-        final android.content.ClipboardManager clipboardManager = (ClipboardManager)this.ctx.getSystemService(CLIPBOARD_SERVICE);
-        ClipData clipData = ClipData.newPlainText("Short URL", this.shortUrl);
-        clipboardManager.setPrimaryClip(clipData);
-    }
+//
+//    private final void Util.copyToClipBoard(ctx, String text) {
+//        final android.content.ClipboardManager clipboardManager = (ClipboardManager)this.ctx.getSystemService(CLIPBOARD_SERVICE);
+//        ClipData clipData = ClipData.newPlainText("Short URL", text);
+//        clipboardManager.setPrimaryClip(clipData);
+//    }
 
     private final void addToHistory() {
-        Date date = new Date();
-        String strDate = date.toString();
-//        this.viewModel = ViewModelProviders.of((HistoryActivity) this.ctx).get(LinkViewModel.class);
+        Date date = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("dd MMM, HH:mm");
+        String strDate = dateFormat.format(date);
+//        Util.ShowToast(ctx, strDate);
         this.viewModel.add(new LinkModel(this.longUrl, this.shortUrl,false, strDate));
     }
+
+//    private final void setShareListener() {
+//        this.shareBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Util.ShowToast(ctx, "kek");
+//                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+//                sharingIntent.setType("text/plain");
+//                String shareBody = shortUrl;
+////                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Short link");
+//                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+////                sharingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(Intent.createChooser(sharingIntent, "Share via"));
+//            }
+//        });
+//    }
 
     private void setOnTouchListener() {
         this.view_url.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                copyToClipboard();
-                showToast("Copied to clipboard");
+                Util.CopyToClipboard(ctx, shortUrl);
+//                Util.ShowToast(ctx, shortUrl);
+                Util.ShowToast(ctx, "Copied to clipboard");
                 return true;
             }
         });

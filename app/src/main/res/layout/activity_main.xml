@@ -62,6 +62,7 @@
         app:layout_constraintTop_toBottomOf="@+id/shorten_btn"
         app:layout_constraintVertical_bias="0.002" />
 
+
     <TextView
         android:id="@+id/short_url"
         android:layout_width="279dp"
@@ -71,12 +72,31 @@
         android:contextClickable="true"
         android:gravity="center"
         android:text=""
-        android:textSize="20dp"
         android:textColor="@color/colorPrimary"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/url_et"
         app:layout_constraintVertical_bias="0.703" />
+
+    <!--<ImageButton-->
+        <!--android:tag=""-->
+        <!--android:id="@+id/shareBtn"-->
+        <!--android:layout_width="46dp"-->
+        <!--android:layout_height="47dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:visibility="visible"-->
+        <!--android:clickable="true"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/short_url"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="0.498"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/history_btn"-->
+        <!--app:layout_constraintVertical_bias="0.253"-->
+        <!--app:srcCompat="?attr/actionModeShareDrawable" />-->
 
 </android.support.constraint.ConstraintLayout>
