@@ -20,6 +20,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+//        View v = inflater.inflate(R.layout.number_card, viewGroup, false);
         return new RecyclerViewHolder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_item, parent, false));
     }
@@ -29,7 +30,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         LinkModel linkModel = linkModelList.get(position);
         holder.originalURLTextView.setText(linkModel.getOriginalURL());
         holder.shortURLTextView.setText(linkModel.getShortURL());
-//        holder.dateTextView.setText(linkModel.getDate().toString());
         holder.starredTextView.setText(Boolean.toString(linkModel.getStarred()));
     }
 
@@ -46,14 +46,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     static class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private TextView originalURLTextView;
         private TextView shortURLTextView;
-        private TextView dateTextView;
         private TextView starredTextView;
 
         RecyclerViewHolder(View view) {
             super(view);
             originalURLTextView = view.findViewById(R.id.original_url_tv);
             shortURLTextView = view.findViewById(R.id.short_url_tv);
-            dateTextView = view.findViewById(R.id.date_tv);
             starredTextView = view.findViewById(R.id.starred_tv);
         }
     }

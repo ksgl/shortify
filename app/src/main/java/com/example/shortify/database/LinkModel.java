@@ -9,13 +9,11 @@ public class LinkModel {
     public int id;
     private String originalURL;
     private String shortURL;
-    private String date;
     boolean starred;
 
-    public LinkModel(String originalURL, String shortURL, String date, boolean starred) {
+    public LinkModel(String originalURL, String shortURL, boolean starred) {
         this.originalURL = originalURL;
         this.shortURL = shortURL;
-        this.date = date;
         this.starred = starred;
     }
 
@@ -25,10 +23,6 @@ public class LinkModel {
 
     public String getShortURL() {
         return shortURL;
-    }
-
-    public String getDate() {
-        return date;
     }
 
     public boolean getStarred() {

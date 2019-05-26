@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 import com.example.shortify.history.HistoryActivity;
 import com.example.shortify.http.RequestProcessor;
-import com.example.shortify.http.POST;
-import com.example.shortify.http.RequestProcessor;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button shortenBtn = findViewById(R.id.shorten_btn);
 
-        Spinner spinner = (Spinner) findViewById(R.id.services_spinner);
+        Spinner spinner = findViewById(R.id.services_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.services, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
