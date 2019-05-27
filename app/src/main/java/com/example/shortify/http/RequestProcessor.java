@@ -1,6 +1,7 @@
 package com.example.shortify.http;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -132,7 +133,11 @@ final public class RequestProcessor {
         return this.shortUrl;
     }
 
-    public void Send() {
+    public interface OnShortenListener {
+        void onShorten(String shortStr);
+    }
+
+    public void Send(OnShortenListener listener) {
         final Handler handler = new Handler();
         OkHttpClient client = new OkHttpClient();
 
@@ -140,12 +145,8 @@ final public class RequestProcessor {
             @Override
             public void onResponse(Call call, Response response) {
                 String body = response.body().toString();
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        String res = ParseResponse(response);
-                    }
-                });
+                String res = ParseResponse(response);
+                listener.onShorten(res);
             }
 
             @Override
@@ -185,7 +186,7 @@ final public class RequestProcessor {
 ////                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Short link");
 //                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
 ////                sharingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(Intent.createChooser(sharingIntent, ctx.getResources().getString(R.string.share_via)));
+//                ctx.startActivity(Intent.createChooser(sharingIntent, ctx.getResources().getString(R.string.share_via)));
 //            }
 //        });
 //    }

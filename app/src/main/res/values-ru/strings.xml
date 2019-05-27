@@ -3,4 +3,9 @@
     <string name="shorten_btn_str">укоротить</string>
     <string name="history_btn_str">история</string>
     <string name="input_url_hint_str">адрес</string>
+    <string name="short_url_clipboard">Короткий URL</string>
+    <string name="copied_to_clipboard">Скопировано!</string>
+    <string name="share_via">Поделиться</string>
+    <string name="invalid_url">Неверный URL!</string>
+    <string name="network_error">Ошибка сети</string>
 </resources>

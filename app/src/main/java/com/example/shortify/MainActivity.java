@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.shortify.history.HistoryActivity;
 import com.example.shortify.history.LinkViewModel;
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-//        ImageButton shareBtn = findViewById(R.id.shareBtn);
+        ImageButton shareBtn = findViewById(R.id.shareBtn);
 //        shareBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -45,15 +47,45 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
+        TextView textView = findViewById(R.id.short_url);
+
         shortenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText url = findViewById(R.id.url_et);
                 try {
-                    new RequestProcessor(getApplicationContext(), findViewById(R.id.short_url), viewModel)
-                            .SetParams(spinner.getSelectedItem().toString(), url.getText().toString())
-                            .CreateRequest()
-                            .Send();
+                    new RequestProcessor(getApplicationContext(), textView, viewModel)
+                        .SetParams(spinner.getSelectedItem().toString(), url.getText().toString())
+                        .CreateRequest()
+                        .Send(shortStr -> {
+                            runOnUiThread(new Runnable() {
+                                final public void run() {
+                                    shareBtn.setVisibility(View.VISIBLE);
+                                    textView.setText(shortStr);
+                                    shareBtn.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                                            sharingIntent.setType("text/plain");
+                                            String shareBody = shortStr;
+                                            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                                            startActivity(Intent.createChooser(sharingIntent, "Share via"));
+                                        }
+                                    });
+                                }
+                            });
+                            textView.setText(shortStr);
+                            shareBtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                                    sharingIntent.setType("text/plain");
+                                    String shareBody = shortStr;
+                                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                                    startActivity(Intent.createChooser(sharingIntent, "Share via"));
+                                }
+                            });
+                        });
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
