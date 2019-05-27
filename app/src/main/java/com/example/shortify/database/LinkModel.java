@@ -1,5 +1,6 @@
 package com.example.shortify.database;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
@@ -9,18 +10,25 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@Entity(indices = {@Index(value = {"shortURL"},
+@Entity(indices = {@Index(value = {"short_url"},
         unique = true)})
 public class LinkModel {
 
     @PrimaryKey(autoGenerate = true)
     public int id;
+
+    @ColumnInfo(name = "original_url")
     private String originalURL;
+
+    @ColumnInfo(name = "short_url")
     private String shortURL;
-//    public String date;
+
     @TypeConverters({TimestampConverter.class})
+    @ColumnInfo(name = "date")
     public Date date;
-    public boolean starred;
+
+    @ColumnInfo(name = "starred")
+    private boolean starred;
 
     public LinkModel(String originalURL, String shortURL, boolean starred, Date date) {
         this.id = id;

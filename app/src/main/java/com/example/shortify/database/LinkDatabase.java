@@ -6,7 +6,7 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
-@Database(entities = {LinkModel.class}, version = 4)
+@Database(entities = {LinkModel.class}, version = 5)
 @TypeConverters({TimestampConverter.class})
 public abstract class LinkDatabase extends RoomDatabase {
 
