@@ -1,101 +1,95 @@
 package com.example.shortify;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
-import com.example.shortify.history.HistoryActivity;
+import com.example.shortify.common.Util;
+import com.example.shortify.history.FavouritesFragment;
+import com.example.shortify.history.HistoryFragment;
 import com.example.shortify.history.LinkViewModel;
-import com.example.shortify.http.RequestProcessor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    LinkViewModel viewModel;
+    private LinkViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        this.viewModel = ViewModelProviders.of(this).get(LinkViewModel .class);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button shortenBtn = findViewById(R.id.shorten_btn);
+        this.viewModel = ViewModelProviders.of(this).get(LinkViewModel.class);
 
-        Spinner spinner = findViewById(R.id.services_spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.services, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        ViewPager viewPager = findViewById(R.id.pager);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        ImageButton shareBtn = findViewById(R.id.shareBtn);
-//        shareBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-//                sharingIntent.setType("text/plain");
-//                String shareBody = "kek";
-//                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Short link");
-//                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-//                startActivity(Intent.createChooser(sharingIntent, "Share via"));
-//            }
-//        });
+        // Add Fragments to adapter one by one
+        adapter.addFragment(new MainFragment(), getResources().getString(R.string.shortner_toolbar_tag));
+        adapter.addFragment(new HistoryFragment(), getResources().getString(R.string.history_toolbar_tag));
+        adapter.addFragment(new FavouritesFragment(), getResources().getString(R.string.favourites_toolbar_tag));
+        viewPager.setAdapter(adapter);
 
-        TextView textView = findViewById(R.id.short_url);
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+    }
 
-        shortenBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText url = findViewById(R.id.url_et);
-                shortenBtn.onEditorAction(EditorInfo.IME_ACTION_DONE);
-                try {
-                    new RequestProcessor(getApplicationContext(), textView, viewModel)
-                        .SetParams(spinner.getSelectedItem().toString(), url.getText().toString())
-                        .CreateRequest()
-                        .Send(shortStr -> {
-                            runOnUiThread(new Runnable() {
-                                final public void run() {
-                                    if (!shortStr.isEmpty()){
-                                        shareBtn.setVisibility(View.VISIBLE);
-                                    } else {
-                                        shareBtn.setVisibility(View.INVISIBLE);
-                                    }
-                                    textView.setText(shortStr);
-                                    shareBtn.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                                            sharingIntent.setType("text/plain");
-                                            String shareBody = shortStr;
-                                            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                                            startActivity(Intent.createChooser(sharingIntent, "Share via"));
-                                        }
-                                    });
-                                }
-                            });
-                        });
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+    // Adapter for the viewpager using FragmentPagerAdapter
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
 
-        Button historyBtn = findViewById(R.id.history_btn);
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
 
-        historyBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
 
-                Intent intent = new Intent(v.getContext(), HistoryActivity.class);
-                startActivity(intent);
-            }
-        });
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_delete_history:
+                viewModel.removeAll();
+                Util.ShowToast(getApplicationContext(),getResources().getString(R.string.history_cleared));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
