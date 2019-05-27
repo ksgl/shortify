@@ -4,7 +4,6 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -49,18 +48,10 @@ public class FavouritesFragment extends Fragment {
         recyclerView.setLayoutManager(layout);
         recyclerView.setAdapter(recyclerViewAdapter);
 
-        viewModel.getToShow().observe(FavouritesFragment.this, new Observer<List<LinkModel>>() {
+        viewModel.getFavouritesList().observe(FavouritesFragment.this, new Observer<List<LinkModel>>() {
             @Override
             public void onChanged(@Nullable List<LinkModel> l) {
                 recyclerViewAdapter.addItems(l);
-            }
-        });
-
-        FloatingActionButton remove = view.findViewById(R.id.fab);
-        remove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewModel.removeAll();
             }
         });
 

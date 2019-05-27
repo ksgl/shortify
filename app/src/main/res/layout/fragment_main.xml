@@ -46,21 +46,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/url_et" />
 
-    <Button
-        android:id="@+id/history_btn"
-        android:layout_width="107dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/history_btn_str"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/shorten_btn"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/shorten_btn"
-        app:layout_constraintTop_toBottomOf="@+id/shorten_btn"
-        app:layout_constraintVertical_bias="0.002" />
-
-
     <TextView
         android:id="@+id/short_url"
         android:layout_width="279dp"
