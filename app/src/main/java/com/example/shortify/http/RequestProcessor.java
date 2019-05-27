@@ -54,6 +54,8 @@ final public class RequestProcessor extends MainActivity {
 
     public RequestProcessor CreateRequest() throws IllegalArgumentException {
         String bitlyAPIToken = "fc11278ca50671dbd19332c8698026c7a9cd4123";
+        String rebrandlyAPIToken = "02fcb586ced64eafa4436815b6667b91";
+
         String reqUrl ="";
         Request.Builder request = new Request.Builder();
 
@@ -70,6 +72,12 @@ final public class RequestProcessor extends MainActivity {
                         .addFormDataPart("url", this.longUrl)
                         .build();
                 this.APIRequest = request.post(requestBody).url(reqUrl).build();
+                break;
+            case "rebrandly":
+                reqUrl = "https://api.rebrandly.com/v1/links/new"
+                        + "?apikey=" + rebrandlyAPIToken
+                        + "&destination=" + longUrl;
+                this.APIRequest = request.url(reqUrl).build();
                 break;
             default:
                 throw new IllegalArgumentException("Incorrect service " + this.service);
@@ -96,12 +104,7 @@ final public class RequestProcessor extends MainActivity {
             case "bit.ly":
                 try {
                     if (Integer.parseInt(json.get("status_code").toString()) != 200) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Util.ShowToast(ctx, ctx.getResources().getString(R.string.invalid_url));
-                            }
-                        });
+                        showReqErrorToast();
                         return "";
                     }
                 } catch (JSONException e) {
@@ -117,13 +120,26 @@ final public class RequestProcessor extends MainActivity {
                 break;
             case  "cleanuri":
                 if (res.code() != 200) {
-                    Util.ShowToast(ctx, ctx.getResources().getString(R.string.invalid_url));
+                    showReqErrorToast();
                     return "";
                 }
                 try {
                     shortUrl = json.get("result_url").toString();
                 } catch (JSONException e) {
                     Log.e("CRITICAL", "unexpected JSON exception while getting cleanuri data");
+                }
+                break;
+            case "rebrandly":
+                if (res.code() != 200) {
+                    showReqErrorToast();
+                    return "";
+                }
+                try {
+                    shortUrl = json.get("shortURL").toString();
+                    String isSSL = json.get("https").toString();
+                    shortUrl = "https://" + shortUrl;
+                } catch (JSONException e) {
+                    Log.e("CRITICAL", "unexpected JSON exception while getting rebrandly data");
                 }
                 break;
             default:
@@ -138,11 +154,20 @@ final public class RequestProcessor extends MainActivity {
         return this.shortUrl;
     }
 
+    private final void showReqErrorToast() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Util.ShowToast(ctx, ctx.getResources().getString(R.string.invalid_url));
+            }
+        });
+    }
+
     public interface OnShortenListener {
         void onShorten(String shortStr);
     }
 
-    public void Send(OnShortenListener listener) {
+    public RequestProcessor Send(OnShortenListener listener) {
         final Handler handler = new Handler();
         OkHttpClient client = new OkHttpClient();
 
@@ -166,8 +191,10 @@ final public class RequestProcessor extends MainActivity {
                 });
             }
         });
-
+        return this;
     }
+
+    public String getShortUrl() { return shortUrl; }
 
     private  final void showUrl(String url) {
         this.view_url.setText(url);
@@ -179,22 +206,6 @@ final public class RequestProcessor extends MainActivity {
         String strDate = dateFormat.format(date);
         this.viewModel.add(new LinkModel(this.longUrl, this.shortUrl,false, strDate));
     }
-
-//    private final void setShareListener() {
-//        this.shareBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Util.ShowToast(ctx, "kek");
-//                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-//                sharingIntent.setType("text/plain");
-//                String shareBody = shortUrl;
-////                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Short link");
-//                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-////                sharingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                ctx.startActivity(Intent.createChooser(sharingIntent, ctx.getResources().getString(R.string.share_via)));
-//            }
-//        });
-//    }
 
     private void setOnTouchListener() {
         this.view_url.setOnTouchListener(new View.OnTouchListener() {

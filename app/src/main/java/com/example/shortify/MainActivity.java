@@ -62,7 +62,11 @@ public class MainActivity extends AppCompatActivity {
                         .Send(shortStr -> {
                             runOnUiThread(new Runnable() {
                                 final public void run() {
-                                    shareBtn.setVisibility(View.VISIBLE);
+                                    if (!shortStr.isEmpty()){
+                                        shareBtn.setVisibility(View.VISIBLE);
+                                    } else {
+                                        shareBtn.setVisibility(View.INVISIBLE);
+                                    }
                                     textView.setText(shortStr);
                                     shareBtn.setOnClickListener(new View.OnClickListener() {
                                         @Override

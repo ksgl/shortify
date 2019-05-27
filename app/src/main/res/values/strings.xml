@@ -12,6 +12,7 @@
     <string-array name="services">
         <item>bit.ly</item>
         <item>cleanuri</item>
+        <item>rebrandly</item>
     </string-array>
 
 </resources>
