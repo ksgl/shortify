@@ -17,9 +17,10 @@ public class LinkViewModel extends AndroidViewModel {
 
     ExecutorService service = Executors.newFixedThreadPool(1);
 
+    private LinkDatabase linkDatabase;
+
     private LiveData<List<LinkModel>> linkList;
     private LiveData<List<LinkModel>> favouritesList;
-    private LinkDatabase linkDatabase;
 
     public MediatorLiveData<List<LinkModel>> toShow;
 
@@ -46,10 +47,16 @@ public class LinkViewModel extends AndroidViewModel {
         return toShow;
     }
 
-    public void switchToFavorite() {
+    public void switchToFavorites() {
         toShow.removeSource(linkList);
         toShow.removeSource(favouritesList);
         toShow.addSource(favouritesList, linkModels -> toShow.postValue(linkModels));
+    }
+
+    public void switchToAll() {
+        toShow.removeSource(linkList);
+        toShow.removeSource(favouritesList);
+        toShow.addSource(linkList, linkModels -> toShow.postValue(linkModels));
     }
 
     public void removeAll() {

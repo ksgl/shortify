@@ -23,7 +23,7 @@ public class HistoryActivity extends AppCompatActivity {
     private LinkViewModel viewModel;
     private RecyclerViewAdapter recyclerViewAdapter;
     private RecyclerView recyclerView;
-    private boolean favsClicked = false;
+    private boolean wasClicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +70,13 @@ public class HistoryActivity extends AppCompatActivity {
                                 Toast.makeText(view.getContext(), "No favourites", Toast.LENGTH_SHORT).show();
                                 viewModel.getFavouritesList().removeObserver(this);
                             } else {
-                                viewModel.switchToFavorite();
+                                if (wasClicked == true) {
+                                    viewModel.switchToAll();
+                                    wasClicked = false;
+                                } else {
+                                    viewModel.switchToFavorites();
+                                    wasClicked = true;
+                                }
                             }
                         }
                     });
