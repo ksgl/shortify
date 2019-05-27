@@ -1,13 +1,13 @@
 package com.example.shortify.http;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.shortify.MainActivity;
 import com.example.shortify.R;
 import com.example.shortify.common.Util;
 import com.example.shortify.database.LinkModel;
@@ -31,7 +31,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 // RequestProcessor generates API request counting on service selected
-final public class RequestProcessor {
+final public class RequestProcessor extends MainActivity {
     private String longUrl = "";
     private String shortUrl = "";
     private String service = "";
@@ -96,7 +96,12 @@ final public class RequestProcessor {
             case "bit.ly":
                 try {
                     if (Integer.parseInt(json.get("status_code").toString()) != 200) {
-                        Util.ShowToast(ctx, ctx.getResources().getString(R.string.invalid_url));
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Util.ShowToast(ctx, ctx.getResources().getString(R.string.invalid_url));
+                            }
+                        });
                         return "";
                     }
                 } catch (JSONException e) {

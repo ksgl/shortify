@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText url = findViewById(R.id.url_et);
+                shortenBtn.onEditorAction(EditorInfo.IME_ACTION_DONE);
                 try {
                     new RequestProcessor(getApplicationContext(), textView, viewModel)
                         .SetParams(spinner.getSelectedItem().toString(), url.getText().toString())
@@ -72,17 +74,6 @@ public class MainActivity extends AppCompatActivity {
                                             startActivity(Intent.createChooser(sharingIntent, "Share via"));
                                         }
                                     });
-                                }
-                            });
-                            textView.setText(shortStr);
-                            shareBtn.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                                    sharingIntent.setType("text/plain");
-                                    String shareBody = shortStr;
-                                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                                    startActivity(Intent.createChooser(sharingIntent, "Share via"));
                                 }
                             });
                         });
