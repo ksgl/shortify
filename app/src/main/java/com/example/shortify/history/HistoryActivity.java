@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.shortify.R;
 import com.example.shortify.database.LinkModel;
@@ -42,7 +43,7 @@ public class HistoryActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layout);
         recyclerView.setAdapter(recyclerViewAdapter);
 
-        this.viewModel.getLinkList().observe(HistoryActivity.this, new Observer<List<LinkModel>>() {
+        viewModel.getToShow().observe(HistoryActivity.this, new Observer<List<LinkModel>>() {
             @Override
             public void onChanged(@Nullable List<LinkModel> l) {
                 recyclerViewAdapter.addItems(l);
@@ -57,22 +58,23 @@ public class HistoryActivity extends AppCompatActivity {
             }
         });
 
-//        FloatingActionButton fav = findViewById(R.id.favourites_fab);
-//
-//        fav.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                    viewModel.getFavouritesList().observe(HistoryActivity.this, new Observer<List<LinkModel>>() {
-//                        @Override
-//                        public void onChanged(@Nullable List<LinkModel> l) {
-//                            if (viewModel.getFavouritesList().getValue().isEmpty()) {
-//                                Toast.makeText(view.getContext(), "No favourites", Toast.LENGTH_SHORT).show();
-//                            } else {
-//                                recyclerViewAdapter.addItems(l);
-//                            }
-//                        }
-//                    });
-//            }
-//        });
+        FloatingActionButton fav = findViewById(R.id.favourites_fab);
+
+        fav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    viewModel.getFavouritesList().observe(HistoryActivity.this, new Observer<List<LinkModel>>() {
+                        @Override
+                        public void onChanged(@Nullable List<LinkModel> l) {
+                            if (l == null || l.isEmpty()) {
+                                Toast.makeText(view.getContext(), "No favourites", Toast.LENGTH_SHORT).show();
+                                viewModel.getFavouritesList().removeObserver(this);
+                            } else {
+                                viewModel.switchToFavorite();
+                            }
+                        }
+                    });
+            }
+        });
     }
 }
