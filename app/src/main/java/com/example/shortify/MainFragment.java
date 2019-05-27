@@ -1,5 +1,6 @@
 package com.example.shortify;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -35,6 +36,7 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main, container, false);
+        this.viewModel = ViewModelProviders.of(this).get(LinkViewModel.class);
 
         Button shortenBtn = view.findViewById(R.id.shorten_btn);
 
