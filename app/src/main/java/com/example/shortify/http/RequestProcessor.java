@@ -103,7 +103,6 @@ final public class RequestProcessor extends MainActivity {
         JSONObject json = null;
 
         if (service.equals("clck.ru")) {
-            Log.d("HEADER", res.header("Content-Type"));
             if (!res.header("Content-Type").equals("text/javascript; charset=utf-8")) {
                 showReqErrorToast();
                 return "";
@@ -114,8 +113,6 @@ final public class RequestProcessor extends MainActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            Log.d("BODY", shortUrl);
             return processShortUrl();
         }
 
@@ -180,7 +177,7 @@ final public class RequestProcessor extends MainActivity {
                     }
                 } catch (JSONException e) {
                     Util.ShowToast(ctx, "Something went wrong");
-                    Log.e("CRITICAL", "unexpected JSON exception while getting bitly status_code");
+                    Log.e("CRITICAL", "unexpected JSON exception while getting random status_code");
                 }
                 break;
             default:
