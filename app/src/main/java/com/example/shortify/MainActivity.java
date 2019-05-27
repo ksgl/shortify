@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         ViewPager viewPager = findViewById(R.id.pager);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        // Add Fragments to adapter one by one
         adapter.addFragment(new MainFragment(), getResources().getString(R.string.shortner_toolbar_tag));
         adapter.addFragment(new HistoryFragment(), getResources().getString(R.string.history_toolbar_tag));
         adapter.addFragment(new FavouritesFragment(), getResources().getString(R.string.favourites_toolbar_tag));
@@ -44,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    // Adapter for the viewpager using FragmentPagerAdapter
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
