@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/shorten_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/shorten_btn_str"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/services_spinner"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/services_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/url_et"
+        app:layout_constraintVertical_bias="0.13" />
+
+    <EditText
+        android:id="@+id/url_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/input_url_hint_str"
+        android:inputType="textUri"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/services_spinner"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/services_spinner"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.182" />
+
+    <Spinner
+        android:id="@+id/services_spinner"
+        android:layout_width="222dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/shorten_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/url_et" />
+
+    <Button
+        android:id="@+id/history_btn"
+        android:layout_width="107dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/history_btn_str"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/shorten_btn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/shorten_btn"
+        app:layout_constraintTop_toBottomOf="@+id/shorten_btn"
+        app:layout_constraintVertical_bias="0.002" />
+
+
+    <TextView
+        android:id="@+id/short_url"
+        android:layout_width="279dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:contextClickable="true"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/colorPrimary"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/url_et"
+        app:layout_constraintVertical_bias="0.703" />
+
+    <ImageButton
+        android:id="@+id/shareBtn"
+        android:layout_width="46dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/history_btn"
+        app:layout_constraintVertical_bias="0.141"
+        app:srcCompat="?attr/actionModeShareDrawable" />
+
+</android.support.constraint.ConstraintLayout>
