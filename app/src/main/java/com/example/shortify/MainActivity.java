@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.example.shortify.common.Util;
 import com.example.shortify.history.FavouritesFragment;
 import com.example.shortify.history.HistoryFragment;
 import com.example.shortify.history.LinkViewModel;
@@ -85,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_delete_history:
                 viewModel.removeAll();
+                Util.ShowToast(getApplicationContext(),getResources().getString(R.string.history_cleared));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

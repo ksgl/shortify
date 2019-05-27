@@ -12,6 +12,7 @@
     <string name="history_toolbar_tag">history</string>
     <string name="favourites_toolbar_tag">favourites</string>
     <string name="delete_history_item">Delete history</string>
+    <string name="history_cleared">History cleared</string>
 
     <string-array name="services">
         <item>bit.ly</item>
