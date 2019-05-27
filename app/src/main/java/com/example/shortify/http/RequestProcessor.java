@@ -83,6 +83,15 @@ final public class RequestProcessor extends MainActivity {
                 reqUrl = "https://clck.ru/--" + "?url=" + longUrl;
                 this.APIRequest = request.url(reqUrl).build();
                 break;
+            case "random":
+                reqUrl = "http://tiny-url.info/api/v1/random";
+                RequestBody body = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("url", this.longUrl)
+                        .addFormDataPart("format", "json")
+                        .build();
+                this.APIRequest = request.post(body).url(reqUrl).build();
+                break;
             default:
                 throw new IllegalArgumentException("Incorrect service " + this.service);
         }
@@ -162,6 +171,18 @@ final public class RequestProcessor extends MainActivity {
                     Log.e("CRITICAL", "unexpected JSON exception while getting rebrandly data");
                 }
                 break;
+            case "random":
+                try {
+                    shortUrl = json.get("shorturl").toString();
+                    if (shortUrl.equals("")) {
+                        showReqErrorToast();
+                        return "";
+                    }
+                } catch (JSONException e) {
+                    Util.ShowToast(ctx, "Something went wrong");
+                    Log.e("CRITICAL", "unexpected JSON exception while getting bitly status_code");
+                }
+                break;
             default:
                 throw new IllegalArgumentException("Incorrect service " + this.service);
 
@@ -219,11 +240,16 @@ final public class RequestProcessor extends MainActivity {
 
     public String getShortUrl() { return shortUrl; }
 
-    private  final void showUrl(String url) {
-        this.view_url.setText(url);
+    private void showUrl(String url) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                view_url.setText(url);
+            }
+        });
     }
 
-    private final void addToHistory() {
+    private void addToHistory() {
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("dd MMM, HH:mm");
         String strDate = dateFormat.format(date);
