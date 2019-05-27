@@ -79,6 +79,10 @@ final public class RequestProcessor extends MainActivity {
                         + "&destination=" + longUrl;
                 this.APIRequest = request.url(reqUrl).build();
                 break;
+            case "clck.ru":
+                reqUrl = "https://clck.ru/--" + "?url=" + longUrl;
+                this.APIRequest = request.url(reqUrl).build();
+                break;
             default:
                 throw new IllegalArgumentException("Incorrect service " + this.service);
         }
@@ -87,8 +91,24 @@ final public class RequestProcessor extends MainActivity {
     }
 
     public String ParseResponse(Response res) throws IllegalArgumentException {
-        String shortUrl = "";
         JSONObject json = null;
+
+        if (service.equals("clck.ru")) {
+            Log.d("HEADER", res.header("Content-Type"));
+            if (!res.header("Content-Type").equals("text/javascript; charset=utf-8")) {
+                showReqErrorToast();
+                return "";
+            }
+
+            try {
+                this.shortUrl = res.body().string();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Log.d("BODY", shortUrl);
+            return processShortUrl();
+        }
 
         try {
             String jsonData = res.body().string();
@@ -147,11 +167,14 @@ final public class RequestProcessor extends MainActivity {
 
         }
 
-        this.shortUrl = shortUrl;
+        return processShortUrl();
+    }
+
+    private final String processShortUrl() {
         addToHistory();
         setOnTouchListener();
         showUrl(this.shortUrl);
-        return this.shortUrl;
+        return  shortUrl;
     }
 
     private final void showReqErrorToast() {
