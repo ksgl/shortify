@@ -18,13 +18,13 @@ import com.example.shortify.database.LinkModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HistoryFragment extends Fragment {
+public class FavouritesFragment extends Fragment {
 
     private LinkViewModel viewModel;
     private RecyclerViewAdapter recyclerViewAdapter;
     private RecyclerView recyclerView;
 
-    public HistoryFragment() {
+    public FavouritesFragment() {
         // Required empty public constructor
     }
 
@@ -49,7 +49,7 @@ public class HistoryFragment extends Fragment {
         recyclerView.setLayoutManager(layout);
         recyclerView.setAdapter(recyclerViewAdapter);
 
-        viewModel.getToShow().observe(HistoryFragment.this, new Observer<List<LinkModel>>() {
+        viewModel.getToShow().observe(FavouritesFragment.this, new Observer<List<LinkModel>>() {
             @Override
             public void onChanged(@Nullable List<LinkModel> l) {
                 recyclerViewAdapter.addItems(l);

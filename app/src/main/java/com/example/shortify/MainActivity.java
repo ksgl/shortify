@@ -24,8 +24,9 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         // Add Fragments to adapter one by one
-        adapter.addFragment(new MainFragment(), "Main");
+        adapter.addFragment(new MainFragment(), "Shortener");
         adapter.addFragment(new HistoryFragment(), "History");
+        adapter.addFragment(new FavouritesFragment(), "Favourites");
         viewPager.setAdapter(adapter);
 
         TabLayout tabLayout = findViewById(R.id.tabs);
