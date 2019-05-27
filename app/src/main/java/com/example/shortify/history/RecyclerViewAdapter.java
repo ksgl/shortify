@@ -82,7 +82,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                                                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
 //                sharingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                    ctx.startActivity(Intent.createChooser(sharingIntent, ctx.getResources().getString(R.string.share_via)));
-
                                                }
                                            });
 
