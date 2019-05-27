@@ -13,7 +13,7 @@ import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 @Dao
 public interface LinkDAO {
 
-    @Query("SELECT * FROM LinkModel ORDER BY date")
+    @Query("SELECT * FROM LinkModel ORDER BY date DESC")
     LiveData<List<LinkModel>> getAll();
 
     @Query("SELECT * FROM LinkModel WHERE starred=1 ORDER BY date")

@@ -4,7 +4,6 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
-import android.os.AsyncTask;
 
 import com.example.shortify.database.LinkDatabase;
 import com.example.shortify.database.LinkModel;
@@ -54,43 +53,15 @@ public class LinkViewModel extends AndroidViewModel {
     }
 
     public void removeAll() {
-        new deleteAsyncTask(linkDatabase).execute(linkList.getValue());
+        service.submit(() -> linkDatabase.linkModel().deleteAll());
     }
 
-    private static class deleteAsyncTask extends AsyncTask<List<LinkModel>, Void, Void> {
-        private LinkDatabase db;
-
-        deleteAsyncTask(LinkDatabase linkDatabase) {
-            db = linkDatabase;
-        }
-
-        @Override
-        protected Void doInBackground(final List<LinkModel>... params) {
-                db.linkModel().deleteAll();
-            return null;
-        }
-    }
 
     public void add(final LinkModel link) {
-        new addAsyncTask(linkDatabase).execute(link);
+        service.submit(() -> linkDatabase.linkModel().addLink(link));
     }
-
-    private static class addAsyncTask extends AsyncTask<LinkModel, Void, Void> {
-        private LinkDatabase db;
-        addAsyncTask(LinkDatabase linkDatabase) {
-            db = linkDatabase;
-        }
-
-        @Override
-        protected Void doInBackground(final LinkModel... params) {
-            db.linkModel().addLink(params[0]);
-            return null;
-        }
-    }
-
 
     public void changeStarred(final LinkModel link) {
         service.submit(() -> linkDatabase.linkModel().updateStarred(link));
-//        new changeStarredAsyncTask(linkDatabase).execute(link);
     }
 }
