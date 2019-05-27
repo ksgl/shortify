@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.shortify.MainActivity;
 import com.example.shortify.R;
 import com.example.shortify.common.Util;
 import com.example.shortify.database.LinkModel;
@@ -30,7 +31,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 // RequestProcessor generates API request counting on service selected
-final public class RequestProcessor {
+final public class RequestProcessor extends MainActivity {
     private String longUrl = "";
     private String shortUrl = "";
     private String service = "";
@@ -95,7 +96,12 @@ final public class RequestProcessor {
             case "bit.ly":
                 try {
                     if (Integer.parseInt(json.get("status_code").toString()) != 200) {
-                        Util.ShowToast(ctx, ctx.getResources().getString(R.string.invalid_url));
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Util.ShowToast(ctx, ctx.getResources().getString(R.string.invalid_url));
+                            }
+                        });
                         return "";
                     }
                 } catch (JSONException e) {
@@ -132,7 +138,11 @@ final public class RequestProcessor {
         return this.shortUrl;
     }
 
-    public void Send() {
+    public interface OnShortenListener {
+        void onShorten(String shortStr);
+    }
+
+    public void Send(OnShortenListener listener) {
         final Handler handler = new Handler();
         OkHttpClient client = new OkHttpClient();
 
@@ -140,12 +150,8 @@ final public class RequestProcessor {
             @Override
             public void onResponse(Call call, Response response) {
                 String body = response.body().toString();
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        String res = ParseResponse(response);
-                    }
-                });
+                String res = ParseResponse(response);
+                listener.onShorten(res);
             }
 
             @Override
@@ -185,7 +191,7 @@ final public class RequestProcessor {
 ////                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Short link");
 //                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
 ////                sharingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(Intent.createChooser(sharingIntent, ctx.getResources().getString(R.string.share_via)));
+//                ctx.startActivity(Intent.createChooser(sharingIntent, ctx.getResources().getString(R.string.share_via)));
 //            }
 //        });
 //    }
