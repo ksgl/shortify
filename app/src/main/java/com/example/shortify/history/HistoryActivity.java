@@ -12,6 +12,7 @@ import android.view.View;
 
 import com.example.shortify.R;
 import com.example.shortify.database.LinkModel;
+import com.r0adkll.slidr.Slidr;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,8 @@ public class HistoryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Slidr.attach(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 

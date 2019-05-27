@@ -1,18 +1,16 @@
 package com.example.shortify.http;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.shortify.R;
+import com.example.shortify.common.Util;
 import com.example.shortify.database.LinkModel;
 import com.example.shortify.history.LinkViewModel;
-import com.example.shortify.common.Util;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,14 +28,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import org.json.*;
-
-import static android.content.Context.CLIPBOARD_SERVICE;
 
 // RequestProcessor generates API request counting on service selected
 final public class RequestProcessor {
@@ -105,7 +95,7 @@ final public class RequestProcessor {
             case "bit.ly":
                 try {
                     if (Integer.parseInt(json.get("status_code").toString()) != 200) {
-                        Util.ShowToast(ctx, "Invlaid URL!");
+                        Util.ShowToast(ctx, ctx.getResources().getString(R.string.invalid_url));
                         return "";
                     }
                 } catch (JSONException e) {
@@ -121,7 +111,7 @@ final public class RequestProcessor {
                 break;
             case  "cleanuri":
                 if (res.code() != 200) {
-                    Util.ShowToast(ctx, "Invlaid URL!");
+                    Util.ShowToast(ctx, ctx.getResources().getString(R.string.invalid_url));
                     return "";
                 }
                 try {
@@ -164,7 +154,7 @@ final public class RequestProcessor {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        Util.ShowToast(ctx, "Network error");
+                        Util.ShowToast(ctx, ctx.getResources().getString(R.string.network_error));
                         Log.d("EXCEPTION: ", exception); // must be inside run()
                     }
                 });
@@ -173,25 +163,14 @@ final public class RequestProcessor {
 
     }
 
-//    private final void Util.ShowToast(ctx, String text) {
-//        Toast.makeText(this.ctx, text, Toast.LENGTH_SHORT).show();
-//    }
-
     private  final void showUrl(String url) {
         this.view_url.setText(url);
     }
-//
-//    private final void Util.copyToClipBoard(ctx, String text) {
-//        final android.content.ClipboardManager clipboardManager = (ClipboardManager)this.ctx.getSystemService(CLIPBOARD_SERVICE);
-//        ClipData clipData = ClipData.newPlainText("Short URL", text);
-//        clipboardManager.setPrimaryClip(clipData);
-//    }
 
     private final void addToHistory() {
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("dd MMM, HH:mm");
         String strDate = dateFormat.format(date);
-//        Util.ShowToast(ctx, strDate);
         this.viewModel.add(new LinkModel(this.longUrl, this.shortUrl,false, strDate));
     }
 
@@ -206,7 +185,7 @@ final public class RequestProcessor {
 ////                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Short link");
 //                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
 ////                sharingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(Intent.createChooser(sharingIntent, "Share via"));
+//                startActivity(Intent.createChooser(sharingIntent, ctx.getResources().getString(R.string.share_via)));
 //            }
 //        });
 //    }
@@ -216,8 +195,7 @@ final public class RequestProcessor {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Util.CopyToClipboard(ctx, shortUrl);
-//                Util.ShowToast(ctx, shortUrl);
-                Util.ShowToast(ctx, "Copied to clipboard");
+                Util.ShowToast(ctx, ctx.getResources().getString(R.string.copied_to_clipboard));
                 return true;
             }
         });

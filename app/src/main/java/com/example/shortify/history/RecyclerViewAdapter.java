@@ -1,7 +1,5 @@
 package com.example.shortify.history;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -10,15 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.shortify.R;
 import com.example.shortify.common.Util;
 import com.example.shortify.database.LinkModel;
 
 import java.util.List;
-
-import static android.content.Context.CLIPBOARD_SERVICE;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder> {
 
@@ -72,24 +67,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.shortURLTextView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                final android.content.ClipboardManager clipboardManager = (ClipboardManager) ctx.getSystemService(CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("Short URL", linkModel.getShortURL());
-                clipboardManager.setPrimaryClip(clipData);
-                Toast.makeText(ctx, "Copied to clipboard!", Toast.LENGTH_SHORT).show();
+                Util.CopyToClipboard(ctx, ctx.getResources().getString(R.string.short_url_clipboard));
+                Util.ShowToast(ctx,ctx.getResources().getString(R.string.copied_to_clipboard));
             }
         });
 
         holder.shareBtn.setOnClickListener(new View.OnClickListener() {
                                                @Override
                                                public void onClick(View v) {
-                                                   Util.ShowToast(ctx, "kek");
                                                    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                                                    sharingIntent.setType("text/plain");
                                                    String shareBody = linkModel.getShortURL();
 //                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Short link");
                                                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
 //                sharingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                   ctx.startActivity(Intent.createChooser(sharingIntent, "Share via"));
+                                                   ctx.startActivity(Intent.createChooser(sharingIntent, ctx.getResources().getString(R.string.share_via)));
 
                                                }
                                            });
@@ -97,10 +89,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.copyImageButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                final android.content.ClipboardManager clipboardManager = (ClipboardManager) ctx.getSystemService(CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("Short URL", linkModel.getShortURL());
-                clipboardManager.setPrimaryClip(clipData);
-                Toast.makeText(ctx, "Copied to clipboard!", Toast.LENGTH_SHORT).show();
+                Util.CopyToClipboard(ctx, ctx.getResources().getString(R.string.short_url_clipboard));
+                Util.ShowToast(ctx,ctx.getResources().getString(R.string.copied_to_clipboard));
             }
         });
     }

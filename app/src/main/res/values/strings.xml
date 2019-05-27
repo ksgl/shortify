@@ -3,6 +3,11 @@
     <string name="shorten_btn_str">shorten url</string>
     <string name="history_btn_str">history</string>
     <string name="input_url_hint_str">url to shorten</string>
+    <string name="short_url_clipboard">Short URL"</string>
+    <string name="copied_to_clipboard">Copies to clipboard!</string>
+    <string name="share_via">Share via</string>
+    <string name="invalid_url">Invalid URL!</string>
+    <string name="network_error"> Network error</string>
 
     <string-array name="services">
         <item>bit.ly</item>
