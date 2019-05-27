@@ -249,8 +249,8 @@ final public class RequestProcessor extends MainActivity {
     private void addToHistory() {
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("dd MMM, HH:mm");
-        String strDate = dateFormat.format(date);
-        this.viewModel.add(new LinkModel(this.longUrl, this.shortUrl,false, strDate));
+//        String strDate = dateFormat.format(date);
+        this.viewModel.add(new LinkModel(this.longUrl, this.shortUrl,false, date));
     }
 
     private void setOnTouchListener() {

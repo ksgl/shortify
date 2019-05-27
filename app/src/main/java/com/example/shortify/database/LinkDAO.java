@@ -16,7 +16,7 @@ public interface LinkDAO {
     @Query("SELECT * FROM LinkModel ORDER BY date DESC")
     LiveData<List<LinkModel>> getAll();
 
-    @Query("SELECT * FROM LinkModel WHERE starred=1 ORDER BY date")
+    @Query("SELECT * FROM LinkModel WHERE starred=1 ORDER BY starred, date")
     LiveData<List<LinkModel>> getFavourites();
 
     @Insert(onConflict = REPLACE)

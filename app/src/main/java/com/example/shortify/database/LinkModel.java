@@ -1,19 +1,29 @@
 package com.example.shortify.database;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
 
-@Entity
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+@Entity(indices = {@Index(value = {"shortURL"},
+        unique = true)})
 public class LinkModel {
 
     @PrimaryKey(autoGenerate = true)
     public int id;
     private String originalURL;
     private String shortURL;
-    private String date;
-    private boolean starred;
+//    public String date;
+    @TypeConverters({TimestampConverter.class})
+    public Date date;
+    public boolean starred;
 
-    public LinkModel(String originalURL, String shortURL, boolean starred, String date) {
+    public LinkModel(String originalURL, String shortURL, boolean starred, Date date) {
+        this.id = id;
         this.originalURL = originalURL;
         this.shortURL = shortURL;
         this.starred = starred;
@@ -28,8 +38,13 @@ public class LinkModel {
         return this.shortURL;
     }
 
+    public Integer getId() {
+        return this.id;
+    }
+
     public String getDate() {
-        return this.date;
+        DateFormat dateFormat = new SimpleDateFormat("dd MMM, HH:mm");
+        return dateFormat.format(date);
     }
 
     public boolean getStarred() {
