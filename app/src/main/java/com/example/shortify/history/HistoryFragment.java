@@ -23,9 +23,7 @@ public class HistoryFragment extends Fragment {
     private RecyclerViewAdapter recyclerViewAdapter;
     private RecyclerView recyclerView;
 
-    public HistoryFragment() {
-        // Required empty public constructor
-    }
+    public HistoryFragment() { }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

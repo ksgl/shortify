@@ -23,9 +23,7 @@ public class FavouritesFragment extends Fragment {
     private RecyclerViewAdapter recyclerViewAdapter;
     private RecyclerView recyclerView;
 
-    public FavouritesFragment() {
-        // Required empty public constructor
-    }
+    public FavouritesFragment() { }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
