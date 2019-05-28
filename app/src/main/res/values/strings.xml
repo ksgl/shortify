@@ -1,12 +1,10 @@
 <resources>
     <string name="app_name">Shortify</string>
-    <string name="shorten_btn_str">shorten url</string>
-    <string name="history_btn_str">History</string>
-    <string name="input_url_hint_str">Url to shorten</string>
-    <string name="short_url_clipboard">Short URL"</string>
+    <string name="shorten_btn_str">shortify!</string>
+    <string name="input_url_hint_str">Enter your URL here...</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="share_via">Share via</string>
-    <string name="invalid_url">Invalid URL!</string>
+    <string name="invalid_url">Invalid URL</string>
     <string name="network_error">Network error</string>
     <string name="shortner_toolbar_tag">shortner</string>
     <string name="history_toolbar_tag">history</string>

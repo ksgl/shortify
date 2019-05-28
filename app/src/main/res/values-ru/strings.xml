@@ -1,11 +1,14 @@
 <resources>
-    <string name="app_name">укороти-ка</string>
+    <string name="app_name">Укороти-ка</string>
     <string name="shorten_btn_str">укоротить</string>
-    <string name="history_btn_str">история</string>
-    <string name="input_url_hint_str">адрес</string>
-    <string name="short_url_clipboard">Короткий URL</string>
+    <string name="input_url_hint_str">Введите ваш URL...</string>
     <string name="copied_to_clipboard">Скопировано!</string>
     <string name="share_via">Поделиться</string>
-    <string name="invalid_url">Неверный URL!</string>
+    <string name="invalid_url">Неверный URL</string>
     <string name="network_error">Ошибка сети</string>
+    <string name="delete_history_item">Удалить историю</string>
+    <string name="favourites_toolbar_tag">избранное</string>
+    <string name="history_cleared">История очищена</string>
+    <string name="history_toolbar_tag">история</string>
+    <string name="shortner_toolbar_tag">укоротитель</string>
 </resources>
