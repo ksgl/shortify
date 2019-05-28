@@ -8,7 +8,7 @@
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="300dp"
-        android:layout_height="270dp"
+        android:layout_height="240dp"
         android:layout_alignParentStart="true"
         android:layout_centerHorizontal="true"
         android:animateLayoutChanges="true"
@@ -21,15 +21,15 @@
 
         <Button
             android:id="@+id/shorten_btn"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
+            android:layout_width="134dp"
+            android:layout_height="49dp"
             android:layout_below="@+id/services_spinner"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="115dp"
-            android:layout_marginTop="29dp"
-            android:layout_marginEnd="46dp"
+            android:layout_marginStart="121dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="45dp"
             android:layout_marginBottom="29dp"
             android:text="@string/shorten_btn_str"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -48,7 +48,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="45dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="28dp"
             android:layout_marginEnd="43dp"
             android:ems="10"
             android:hint="@string/input_url_hint_str"
@@ -70,7 +70,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="43dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="67dp"
             android:layout_marginEnd="46dp"
             android:background="@drawable/spinner_border"
             app:layout_constraintBottom_toTopOf="@+id/shorten_btn"
@@ -84,33 +84,31 @@
     <RelativeLayout
         android:id="@+id/response_block"
         android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="412dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="344dp"
         android:animateLayoutChanges="true"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
             android:id="@+id/shareBtn"
-            android:layout_width="57dp"
-            android:layout_height="55dp"
+            android:layout_width="52dp"
+            android:layout_height="47dp"
             android:layout_below="@+id/short_url"
             android:layout_alignEnd="@+id/short_url"
             android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="115dp"
-            android:layout_marginTop="27dp"
-            android:layout_marginEnd="116dp"
-            android:layout_marginBottom="26dp"
+            android:layout_marginStart="119dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="121dp"
             android:background="@android:color/transparent"
             android:clickable="true"
             android:focusable="true"
             android:scaleType="fitCenter"
             android:visibility="invisible"
-            app:srcCompat="?attr/actionModeShareDrawable" />
+            app:srcCompat="@drawable/ic_share" />
 
         <TextView
             android:id="@+id/short_url"
@@ -145,6 +143,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/response_block"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/response_block" />
+        app:layout_constraintTop_toTopOf="@+id/response_block"
+        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>
