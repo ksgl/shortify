@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -44,24 +45,16 @@ public class MainFragment extends Fragment {
         spinner.setAdapter(adapter);
 
         ImageButton shareBtn = view.findViewById(R.id.shareBtn);
-        shareBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                String shareBody = "kek";
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Short link");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                startActivity(Intent.createChooser(sharingIntent, "Share via"));
-            }
-        });
-
         TextView textView = view.findViewById(R.id.short_url);
 
         shortenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ProgressBar loader = view.findViewById(R.id.loader);
+                shareBtn.setVisibility(View.INVISIBLE);
+                loader.setVisibility(View.VISIBLE);
                 EditText url = view.findViewById(R.id.url_et);
+                textView.setVisibility(View.INVISIBLE);
                 shortenBtn.onEditorAction(EditorInfo.IME_ACTION_DONE);
                 try {
                     new RequestProcessor(getContext(), textView, viewModel)
@@ -70,10 +63,13 @@ public class MainFragment extends Fragment {
                         .Send(shortStr -> {
                             getActivity().runOnUiThread(new Runnable() {
                                 final public void run() {
+                                    loader.setVisibility(View.INVISIBLE);
                                     if (!shortStr.isEmpty()){
+                                        textView.setVisibility(View.VISIBLE);
                                         shareBtn.setVisibility(View.VISIBLE);
                                     } else {
-                                        shareBtn.setVisibility(View.INVISIBLE);
+                                        shareBtn.setVisibility(View.INVISIBLE);                                        textView.setVisibility(View.VISIBLE);
+                                        textView.setVisibility(View.INVISIBLE);
                                     }
                                     textView.setText(shortStr);
                                     shareBtn.setOnClickListener(new View.OnClickListener() {
