@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -49,7 +50,11 @@ public class MainFragment extends Fragment {
         shortenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ProgressBar loader = view.findViewById(R.id.loader);
+                shareBtn.setVisibility(View.INVISIBLE);
+                loader.setVisibility(View.VISIBLE);
                 EditText url = view.findViewById(R.id.url_et);
+                textView.setVisibility(View.INVISIBLE);
                 shortenBtn.onEditorAction(EditorInfo.IME_ACTION_DONE);
                 try {
                     new RequestProcessor(getContext(), textView, viewModel)
@@ -58,10 +63,13 @@ public class MainFragment extends Fragment {
                         .Send(shortStr -> {
                             getActivity().runOnUiThread(new Runnable() {
                                 final public void run() {
+                                    loader.setVisibility(View.INVISIBLE);
                                     if (!shortStr.isEmpty()){
+                                        textView.setVisibility(View.VISIBLE);
                                         shareBtn.setVisibility(View.VISIBLE);
                                     } else {
-                                        shareBtn.setVisibility(View.INVISIBLE);
+                                        shareBtn.setVisibility(View.INVISIBLE);                                        textView.setVisibility(View.VISIBLE);
+                                        textView.setVisibility(View.INVISIBLE);
                                     }
                                     textView.setText(shortStr);
                                     shareBtn.setOnClickListener(new View.OnClickListener() {
