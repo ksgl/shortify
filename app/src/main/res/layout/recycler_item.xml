@@ -19,37 +19,42 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
-            android:textSize="15dp"
-            android:fontFamily="sans-serif" />
+            android:fontFamily="@font/roboto" />
 
         <ImageButton
             android:id="@+id/copy_ib"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/short_url_tv"
-            android:src="@drawable/ic_copied"/>
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="284dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_toStartOf="@+id/starred_ib"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_copied" />
 
         <TextView
             android:id="@+id/original_url_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/short_url_tv"
             android:layout_alignParentStart="true"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="22dp"
             android:layout_marginBottom="15dp"
-            android:fontFamily="sans-serif"  />
+            android:fontFamily="@font/roboto" />
 
         <TextView
             android:id="@+id/date_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/original_url_tv"
+            android:layout_below="@+id/starred_ib"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="60dp"
-            android:layout_marginBottom="20dp"
-            android:fontFamily="sans-serif" />
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="@font/roboto" />
 
         <ImageButton
             android:id="@+id/starred_ib"
@@ -58,14 +63,21 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="60dp" />
+            android:layout_marginEnd="40dp" />
 
         <ImageButton
             android:id="@+id/share_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/copy_ib"
-            app:srcCompat="?attr/actionModeShareDrawable" />
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="102dp"
+            android:layout_toStartOf="@+id/copy_ib"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_share" />
 
     </RelativeLayout>
 
