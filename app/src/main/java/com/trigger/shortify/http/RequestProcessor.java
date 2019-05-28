@@ -250,8 +250,8 @@ final public class RequestProcessor extends MainActivity {
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("dd MMM, HH:mm");
         String longUrlEllipsize;
-        if (this.longUrl.length() > 20) {
-            longUrlEllipsize = this.longUrl.substring(0,20) + "...";
+        if (this.longUrl.length() > 28) {
+            longUrlEllipsize = this.longUrl.substring(0,28) + "...";
         } else {
             longUrlEllipsize = this.longUrl;
         }

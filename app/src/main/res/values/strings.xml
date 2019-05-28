@@ -6,7 +6,7 @@
     <string name="share_via">Share via</string>
     <string name="invalid_url">Invalid URL</string>
     <string name="network_error">Network error</string>
-    <string name="shortner_toolbar_tag">shortner</string>
+    <string name="shortner_toolbar_tag">shortener</string>
     <string name="history_toolbar_tag">history</string>
     <string name="favourites_toolbar_tag">favourites</string>
     <string name="delete_history_item">Delete history</string>
