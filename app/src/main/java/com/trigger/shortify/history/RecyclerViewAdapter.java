@@ -20,6 +20,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private List<LinkModel> linkModelList;
     private LinkViewModel viewModel;
     private Context ctx;
+    private boolean wasClicked = false;
 
 
     public RecyclerViewAdapter(List<LinkModel> linkModelList, LinkViewModel viewModel, Context ctx) {
@@ -38,7 +39,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(final RecyclerViewHolder holder, int position) {
         LinkModel linkModel = linkModelList.get(position);
 
-        holder.originalURLTextView.setText(linkModel.getOriginalURL());
+        holder.originalURLTextView.setText(linkModel.getOriginalURLEllipsize());
         holder.shortURLTextView.setText(linkModel.getShortURL());
         holder.dateTextView.setText(linkModel.getDate());
 
@@ -67,7 +68,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.shortURLTextView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Util.CopyToClipboard(ctx, ctx.getResources().getString(R.string.short_url_clipboard));
+                Util.CopyToClipboard(ctx, linkModel.getShortURL());
                 Util.ShowToast(ctx,ctx.getResources().getString(R.string.copied_to_clipboard));
             }
         });
@@ -78,9 +79,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                                                    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                                                    sharingIntent.setType("text/plain");
                                                    String shareBody = linkModel.getShortURL();
-//                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Short link");
                                                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-//                sharingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                    ctx.startActivity(Intent.createChooser(sharingIntent, ctx.getResources().getString(R.string.share_via)));
                                                }
                                            });
@@ -88,8 +87,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.copyImageButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Util.CopyToClipboard(ctx, ctx.getResources().getString(R.string.short_url_clipboard));
+                Util.CopyToClipboard(ctx, linkModel.getShortURL());
                 Util.ShowToast(ctx,ctx.getResources().getString(R.string.copied_to_clipboard));
+            }
+        });
+
+        holder.originalURLTextView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                if (wasClicked == false) {
+                    holder.originalURLTextView.setText(linkModel.getOriginalURL());
+                    wasClicked = true;
+                } else {
+                    holder.originalURLTextView.setText(linkModel.getOriginalURLEllipsize());
+                    wasClicked = false;
+                }
             }
         });
     }

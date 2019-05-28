@@ -20,6 +20,9 @@ public class LinkModel {
     @ColumnInfo(name = "original_url")
     private String originalURL;
 
+    @ColumnInfo(name = "original_url_ellipsize")
+    private String originalURLEllipsize;
+
     @ColumnInfo(name = "short_url")
     private String shortURL;
 
@@ -30,24 +33,26 @@ public class LinkModel {
     @ColumnInfo(name = "starred")
     private boolean starred;
 
-    public LinkModel(String originalURL, String shortURL, boolean starred, Date date) {
-        this.id = id;
+    public LinkModel(String originalURL, String originalURLEllipsize, String shortURL, boolean starred, Date date) {
         this.originalURL = originalURL;
+        this.originalURLEllipsize = originalURLEllipsize;
         this.shortURL = shortURL;
         this.starred = starred;
         this.date = date;
     }
 
     public String getOriginalURL() {
-        return this.originalURL;
+        return originalURL;
     }
 
+    public String getOriginalURLEllipsize() {return originalURLEllipsize;}
+
     public String getShortURL() {
-        return this.shortURL;
+        return shortURL;
     }
 
     public Integer getId() {
-        return this.id;
+        return id;
     }
 
     public String getDate() {
