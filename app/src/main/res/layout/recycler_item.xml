@@ -27,6 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/short_url_tv"
+            android:background="@android:color/transparent"
             android:src="@drawable/ic_copied"/>
 
         <TextView
@@ -65,7 +66,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/copy_ib"
-            app:srcCompat="?attr/actionModeShareDrawable" />
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_share" />
 
     </RelativeLayout>
 
