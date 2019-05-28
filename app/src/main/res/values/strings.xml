@@ -1,9 +1,7 @@
 <resources>
     <string name="app_name">Shortify</string>
     <string name="shorten_btn_str">shorten url</string>
-    <string name="history_btn_str">History</string>
     <string name="input_url_hint_str">Url to shorten</string>
-    <string name="short_url_clipboard">Short URL"</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="share_via">Share via</string>
     <string name="invalid_url">Invalid URL!</string>
@@ -12,7 +10,7 @@
     <string name="history_toolbar_tag">history</string>
     <string name="favourites_toolbar_tag">favourites</string>
     <string name="delete_history_item">Delete history</string>
-    <string name="history_cleared">History cleared</string>
+    <string name="history_cleared">history cleared</string>
 
     <string-array name="services">
         <item>bit.ly</item>
