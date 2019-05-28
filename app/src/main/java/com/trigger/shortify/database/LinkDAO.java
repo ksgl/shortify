@@ -8,7 +8,7 @@ import android.arch.persistence.room.Update;
 
 import java.util.List;
 
-import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
+import static android.arch.persistence.room.OnConflictStrategy.IGNORE;
 
 @Dao
 public interface LinkDAO {
@@ -19,7 +19,7 @@ public interface LinkDAO {
     @Query("SELECT * FROM LinkModel WHERE starred=1 ORDER BY starred, date")
     LiveData<List<LinkModel>> getFavourites();
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = IGNORE)
     void addLink(LinkModel link);
 
     @Update
