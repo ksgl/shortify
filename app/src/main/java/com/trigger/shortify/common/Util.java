@@ -1,4 +1,4 @@
-package com.example.shortify.common;
+package com.trigger.shortify.common;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;

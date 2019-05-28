@@ -1,4 +1,4 @@
-package com.example.shortify.database;
+package com.trigger.shortify.database;
 
 import android.arch.persistence.room.TypeConverter;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package com.example.shortify;
+package com.trigger.shortify;
 
 import org.junit.Test;
 
