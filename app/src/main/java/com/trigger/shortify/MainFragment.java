@@ -44,18 +44,6 @@ public class MainFragment extends Fragment {
         spinner.setAdapter(adapter);
 
         ImageButton shareBtn = view.findViewById(R.id.shareBtn);
-        shareBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                String shareBody = "kek";
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Short link");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                startActivity(Intent.createChooser(sharingIntent, "Share via"));
-            }
-        });
-
         TextView textView = view.findViewById(R.id.short_url);
 
         shortenBtn.setOnClickListener(new View.OnClickListener() {

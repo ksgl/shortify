@@ -7,10 +7,10 @@
 
     <application
         android:usesCleartextTraffic="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_link2"
         android:allowBackup="true"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_link2"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.trigger.shortify.MainActivity" android:configChanges="orientation|screenSize">
