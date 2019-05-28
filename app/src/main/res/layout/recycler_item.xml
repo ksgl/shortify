@@ -41,7 +41,7 @@
             android:layout_below="@+id/short_url_tv"
             android:layout_alignParentStart="true"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="22dp"
             android:layout_marginBottom="15dp"
             android:fontFamily="@font/roboto" />
 
