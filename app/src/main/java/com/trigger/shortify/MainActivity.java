@@ -1,4 +1,4 @@
-package com.example.shortify;
+package com.trigger.shortify;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.example.shortify.common.Util;
-import com.example.shortify.history.FavouritesFragment;
-import com.example.shortify.history.HistoryFragment;
-import com.example.shortify.history.LinkViewModel;
+import com.trigger.shortify.common.Util;
+import com.trigger.shortify.history.FavouritesFragment;
+import com.trigger.shortify.history.HistoryFragment;
+import com.trigger.shortify.history.LinkViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

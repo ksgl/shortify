@@ -1,4 +1,4 @@
-package com.example.shortify;
+package com.trigger.shortify;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -15,8 +15,8 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.shortify.history.LinkViewModel;
-import com.example.shortify.http.RequestProcessor;
+import com.trigger.shortify.history.LinkViewModel;
+import com.trigger.shortify.http.RequestProcessor;
 
 public class MainFragment extends Fragment {
 

@@ -1,4 +1,4 @@
-package com.example.shortify.database;
+package com.trigger.shortify.database;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;

@@ -1,4 +1,4 @@
-package com.example.shortify;
+package com.trigger.shortify;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.shortify", appContext.getPackageName());
+        assertEquals("com.trigger.shortify", appContext.getPackageName());
     }
 }

@@ -1,4 +1,4 @@
-package com.example.shortify.history;
+package com.trigger.shortify.history;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.shortify.R;
-import com.example.shortify.common.Util;
-import com.example.shortify.database.LinkModel;
+import com.trigger.shortify.R;
+import com.trigger.shortify.common.Util;
+import com.trigger.shortify.database.LinkModel;
 
 import java.util.List;
 

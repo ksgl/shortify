@@ -1,4 +1,4 @@
-package com.example.shortify.http;
+package com.trigger.shortify.http;
 
 import android.content.Context;
 import android.os.Handler;
@@ -7,11 +7,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.shortify.MainActivity;
-import com.example.shortify.R;
-import com.example.shortify.common.Util;
-import com.example.shortify.database.LinkModel;
-import com.example.shortify.history.LinkViewModel;
+import com.trigger.shortify.MainActivity;
+import com.trigger.shortify.R;
+import com.trigger.shortify.common.Util;
+import com.trigger.shortify.database.LinkModel;
+import com.trigger.shortify.history.LinkViewModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;

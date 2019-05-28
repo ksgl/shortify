@@ -1,4 +1,4 @@
-package com.example.shortify.history;
+package com.trigger.shortify.history;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -11,19 +11,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.shortify.R;
-import com.example.shortify.database.LinkModel;
+import com.trigger.shortify.R;
+import com.trigger.shortify.database.LinkModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavouritesFragment extends Fragment {
+public class HistoryFragment extends Fragment {
 
     private LinkViewModel viewModel;
     private RecyclerViewAdapter recyclerViewAdapter;
     private RecyclerView recyclerView;
 
-    public FavouritesFragment() { }
+    public HistoryFragment() { }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class FavouritesFragment extends Fragment {
         recyclerView.setLayoutManager(layout);
         recyclerView.setAdapter(recyclerViewAdapter);
 
-        viewModel.getFavouritesList().observe(FavouritesFragment.this, new Observer<List<LinkModel>>() {
+        viewModel.getLinkList().observe(HistoryFragment.this, new Observer<List<LinkModel>>() {
             @Override
             public void onChanged(@Nullable List<LinkModel> l) {
                 recyclerViewAdapter.addItems(l);

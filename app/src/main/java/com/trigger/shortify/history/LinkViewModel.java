@@ -1,11 +1,11 @@
-package com.example.shortify.history;
+package com.trigger.shortify.history;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 
-import com.example.shortify.database.LinkDatabase;
-import com.example.shortify.database.LinkModel;
+import com.trigger.shortify.database.LinkDatabase;
+import com.trigger.shortify.database.LinkModel;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
