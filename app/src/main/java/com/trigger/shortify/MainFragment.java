@@ -63,6 +63,16 @@ public class MainFragment extends Fragment {
         TextView textView = view.findViewById(R.id.short_url);
         ImageButton shareBtn = view.findViewById(R.id.shareBtn);
 
+        shareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shortUrl);
+                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share_via)));
+            }
+        });
+
         if (showUrl) {
             textView.setText(shortUrl);
             shareBtn.setVisibility(View.VISIBLE);
