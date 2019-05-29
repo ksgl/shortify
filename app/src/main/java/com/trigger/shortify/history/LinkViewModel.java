@@ -47,4 +47,8 @@ public class LinkViewModel extends AndroidViewModel {
     public void changeStarred(final LinkModel link) {
         service.submit(() -> linkDatabase.linkModel().updateStarred(link));
     }
+
+    public void removeOne(final LinkModel link) {
+        service.submit(() -> linkDatabase.linkModel().deleteLink(link));
+    }
 }
