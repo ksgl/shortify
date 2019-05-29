@@ -21,8 +21,8 @@
 
         <Button
             android:id="@+id/shorten_btn"
-            android:layout_width="134dp"
-            android:layout_height="49dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/services_spinner"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
@@ -31,6 +31,8 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="45dp"
             android:layout_marginBottom="29dp"
+            android:backgroundTint="#ba1840"
+            android:textColor="@android:color/white"
             android:text="@string/shorten_btn_str"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/services_spinner"
