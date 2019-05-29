@@ -104,6 +104,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 }
             }
         });
+
+        holder.deleteImageButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                viewModel.removeOne(linkModel);
+                notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -123,6 +131,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         private ImageButton starredImageButton;
         private ImageButton shareBtn;
         private ImageButton copyImageButton;
+        private ImageButton deleteImageButton;
 
         RecyclerViewHolder(View view) {
             super(view);
@@ -132,6 +141,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             starredImageButton = view.findViewById(R.id.starred_ib);
             copyImageButton = view.findViewById(R.id.copy_ib);
             shareBtn = view.findViewById(R.id.share_btn);
+            deleteImageButton = view.findViewById(R.id.delete_link_ib);
         }
     }
 }
