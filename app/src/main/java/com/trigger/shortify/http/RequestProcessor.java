@@ -83,7 +83,7 @@ final public class RequestProcessor extends MainActivity {
                 reqUrl = "https://clck.ru/--" + "?url=" + longUrl;
                 this.APIRequest = request.url(reqUrl).build();
                 break;
-            case "random":
+            case "tw.gs":
                 reqUrl = "http://tiny-url.info/api/v1/random";
                 RequestBody body = new MultipartBody.Builder()
                         .setType(MultipartBody.FORM)
@@ -168,7 +168,7 @@ final public class RequestProcessor extends MainActivity {
                     Log.e("CRITICAL", "unexpected JSON exception while getting rebrandly data");
                 }
                 break;
-            case "random":
+            case "tw.gs":
                 try {
                     shortUrl = json.get("shorturl").toString();
                     if (shortUrl.equals("")) {
@@ -263,7 +263,13 @@ final public class RequestProcessor extends MainActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Util.CopyToClipboard(ctx, shortUrl);
-                Util.ShowToast(ctx, ctx.getResources().getString(R.string.copied_to_clipboard));
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Util.ShowToast(ctx, ctx.getResources().getString(R.string.copied_to_clipboard));
+                    }
+                });
+
                 return true;
             }
         });

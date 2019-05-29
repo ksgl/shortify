@@ -13,7 +13,7 @@
         android:roundIcon="@drawable/ic_link2"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.trigger.shortify.MainActivity" android:configChanges="orientation|screenSize">
+        <activity android:name="com.trigger.shortify.MainActivity" android:configChanges="screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
