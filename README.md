@@ -1,29 +1,7 @@
 # shortify
-The app that gonna make you cry. Interpret this in any way you like.
+Fast and easy URL shortener in your hand
+---
 
-## Требования к проекту (пометить галочками, что сделано)
+### You can download it [here](https://play.google.com/store/apps/details?id=com.trigger.shortify)
 
-- [x] Минимальная версия API Level 21
-- [x] Целевая версия API Level не ниже 28
-- [x] Наличие как минимум двух локализаций
-- [ ] Соответствие правилам Material Design
-- [x] Наличие асинхронной работы
-- [x] Наличие энергонезависимого хранилища
-- [x] Понятная пользователю обработка ошибок и исключений
-- [x] Корректная обработка поворота экрана
-- [ ] Корректная обработка ситуации вытеснения приложения системой
-
-## TODO:
-- [x] прототип https://share.proto.io/OYCRKC/
-- [x] описание идеи
-- [x] работа с сетью
-- [x] локальное храние
-- [ ] описание функций в readme (функций приложения или документация кода?)
-
-МВП:
-* основная логика с сокращением по одному сервису
-* возможность посмотреть историю
-
-Критерии снижения баллов:
-https://docs.google.com/document/d/1eJkudKXHYA-A5KYrTDxCg69GImGXRv_705r6TZOmyBc/edit
-
+![Main page](http://i66.tinypic.com/ivhm4i.png)
