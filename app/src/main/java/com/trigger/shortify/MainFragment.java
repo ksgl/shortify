@@ -22,6 +22,8 @@ import com.trigger.shortify.http.RequestProcessor;
 public class MainFragment extends Fragment {
 
     LinkViewModel viewModel;
+    private final String IS_SHORT_LINK_PRESENT = "isShortLinkPresent";
+    private String sh;
 
     public MainFragment() { }
 
@@ -47,6 +49,13 @@ public class MainFragment extends Fragment {
         ImageButton shareBtn = view.findViewById(R.id.shareBtn);
         TextView textView = view.findViewById(R.id.short_url);
 
+        if (savedInstanceState != null) {
+            sh = savedInstanceState.getString(IS_SHORT_LINK_PRESENT);
+                textView.setVisibility(View.VISIBLE);
+                shareBtn.setVisibility(View.VISIBLE);
+                textView.setText(sh);
+        }
+
         shortenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,6 +65,7 @@ public class MainFragment extends Fragment {
                 EditText url = view.findViewById(R.id.url_et);
                 textView.setVisibility(View.INVISIBLE);
                 shortenBtn.onEditorAction(EditorInfo.IME_ACTION_DONE);
+
                 try {
                     new RequestProcessor(getContext(), textView, viewModel)
                         .SetParams(spinner.getSelectedItem().toString(), url.getText().toString())
@@ -68,7 +78,7 @@ public class MainFragment extends Fragment {
                                         textView.setVisibility(View.VISIBLE);
                                         shareBtn.setVisibility(View.VISIBLE);
                                     } else {
-                                        shareBtn.setVisibility(View.INVISIBLE);                                        textView.setVisibility(View.VISIBLE);
+                                        shareBtn.setVisibility(View.INVISIBLE);
                                         textView.setVisibility(View.INVISIBLE);
                                     }
                                     textView.setText(shortStr);
